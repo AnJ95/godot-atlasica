@@ -1,21 +1,131 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/SpritesheetDragger/dock/FileInput.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/SpritesheetDragger/dock/Dock.gd" type="Script" id=2]
+[ext_resource path="res://addons/SpritesheetDragger/dock/IconLabel.tscn" type="PackedScene" id=3]
 
-[node name="Dock" type="HBoxContainer"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="Dock" type="PanelContainer"]
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FileInputImage" parent="." instance=ExtResource( 1 )]
-margin_right = 276.0
-text = "Spritesheet image"
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_right = 670.0
+margin_bottom = 202.0
+tab_align = 0
 
-[node name="FileInputData" parent="." instance=ExtResource( 1 )]
-margin_left = 280.0
-margin_right = 544.0
-text = "Spritesheet data"
-[connection signal="value_changed" from="FileInputImage" to="FileInputImage" method="_on_FileInputImage_value_changed"]
-[connection signal="value_changed" from="FileInputData" to="FileInputImage" method="_on_FileInputData_value_changed"]
+[node name="Settings" type="HBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Settings"]
+margin_right = 327.0
+margin_bottom = 166.0
+
+[node name="FileInputImage" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 1 )]
+margin_right = 327.0
+margin_bottom = 30.0
+text = "Atlas image"
+value = "res://icon.png"
+get_from_state_initially = "path_spritesheet_image"
+
+[node name="IconLabelInfo" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 34.0
+margin_right = 327.0
+margin_bottom = 64.0
+icon = 1
+text = "Select an atlas image"
+
+[node name="IconLabelFileDoesNotExist" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 68.0
+margin_right = 327.0
+margin_bottom = 98.0
+text = "The atlas image file does not exist!"
+
+[node name="IconLabelFileNotValid" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 102.0
+margin_right = 327.0
+margin_bottom = 132.0
+text = "The spritesheet file could not be loaded!"
+
+[node name="IconLabelFileValid" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 136.0
+margin_right = 327.0
+margin_bottom = 166.0
+icon = 2
+text = "Everthing seems to be OK!"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Settings"]
+margin_left = 347.0
+margin_right = 662.0
+margin_bottom = 166.0
+
+[node name="FileInputData" parent="TabContainer/Settings/VBoxContainer2" instance=ExtResource( 1 )]
+margin_right = 315.0
+margin_bottom = 30.0
+text = "Atlas data"
+value = "res://atlas.json"
+get_from_state_initially = "path_spritesheet_data"
+
+[node name="IconLabelInfo" parent="TabContainer/Settings/VBoxContainer2" instance=ExtResource( 3 )]
+margin_top = 34.0
+margin_right = 315.0
+margin_bottom = 64.0
+icon = 1
+text = "Select an atlas data file"
+
+[node name="IconLabelFileDoesNotExist" parent="TabContainer/Settings/VBoxContainer2" instance=ExtResource( 3 )]
+margin_top = 68.0
+margin_right = 315.0
+margin_bottom = 98.0
+text = "The atlas data file does not exist!"
+
+[node name="IconLabelFileNotValid" parent="TabContainer/Settings/VBoxContainer2" instance=ExtResource( 3 )]
+margin_top = 102.0
+margin_right = 315.0
+margin_bottom = 132.0
+text = "The atlas data file could not be loaded!"
+
+[node name="IconLabelFileValid" parent="TabContainer/Settings/VBoxContainer2" instance=ExtResource( 3 )]
+margin_top = 136.0
+margin_right = 315.0
+margin_bottom = 166.0
+icon = 2
+text = "Everthing seems to be OK!"
+
+[node name="Spritesheet" type="MarginContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="List of Sprites" type="MarginContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+[connection signal="value_changed" from="TabContainer/Settings/VBoxContainer/FileInputImage" to="." method="_on_FileInputImage_value_changed"]
+[connection signal="value_changed" from="TabContainer/Settings/VBoxContainer2/FileInputData" to="." method="_on_FileInputData_value_changed"]

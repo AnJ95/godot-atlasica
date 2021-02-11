@@ -1,50 +1,45 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/SpritesheetDragger/dock/FileInput.gd" type="Script" id=1]
+[ext_resource path="res://addons/SpritesheetDragger/dock/IconLabel.tscn" type="PackedScene" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="FileInput" type="PanelContainer"]
 margin_right = 167.0
 margin_bottom = 24.0
+size_flags_vertical = 4
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="ToolButton" parent="."]
-margin_right = 217.0
-margin_bottom = 24.0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 217.0
-margin_bottom = 24.0
+margin_right = 309.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-margin_top = 5.0
-margin_right = 57.0
-margin_bottom = 19.0
+[node name="IconLabel" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 119.0
+icon = 3
 text = "FileInput"
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
-margin_left = 67.0
-margin_right = 217.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 150, 0 )
-mouse_filter = 2
+margin_left = 129.0
+margin_right = 309.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 180, 0 )
 size_flags_horizontal = 3
 text = "Select file..."
+caret_position = 14
 
-[node name="FileDialog" type="FileDialog" parent="."]
-margin_right = 416.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 400, 140 )
-filters = PoolStringArray( "\"*.png ; images\"", "\"*.* ; all files\"" )
-show_hidden_files = true
+[node name="Button" type="ToolButton" parent="."]
+margin_right = 309.0
+margin_bottom = 30.0
+mouse_default_cursor_shape = 2
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
