@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/SpritesheetDragger/dock/FileInput.tscn" type="PackedScene" id=1]
+
+[node name="Dock" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileInputImage" parent="." instance=ExtResource( 1 )]
+margin_right = 276.0
+text = "Spritesheet image"
+
+[node name="FileInputData" parent="." instance=ExtResource( 1 )]
+margin_left = 280.0
+margin_right = 544.0
+text = "Spritesheet data"
+[connection signal="value_changed" from="FileInputImage" to="FileInputImage" method="_on_FileInputImage_value_changed"]
+[connection signal="value_changed" from="FileInputData" to="FileInputImage" method="_on_FileInputData_value_changed"]
