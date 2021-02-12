@@ -26,6 +26,7 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Settings" type="HBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -127,7 +128,6 @@ text = "Push this button after you
 re-exported the atlas files!"
 
 [node name="Atlas" type="MarginContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -148,10 +148,12 @@ margin_bottom = 564.0
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas"]
 margin_right = 1016.0
 margin_bottom = 122.0
+mouse_filter = 2
 size_flags_vertical = 0
 
 [node name="IconLabelDrag" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
 margin_right = 1016.0
+mouse_filter = 2
 icon = 6
 text = "Left click and drag to get sub image"
 
@@ -159,6 +161,7 @@ text = "Left click and drag to get sub image"
 margin_top = 34.0
 margin_right = 1016.0
 margin_bottom = 64.0
+mouse_filter = 2
 icon = 4
 text = "Right click and pan to move around"
 
@@ -166,6 +169,7 @@ text = "Right click and pan to move around"
 margin_top = 68.0
 margin_right = 1016.0
 margin_bottom = 98.0
+mouse_filter = 2
 icon = 5
 text = "Scroll to zoom"
 
@@ -173,6 +177,7 @@ text = "Scroll to zoom"
 margin_top = 102.0
 margin_right = 1016.0
 margin_bottom = 122.0
+mouse_filter = 2
 
 [node name="Button" type="Button" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer"]
 margin_right = 142.0
