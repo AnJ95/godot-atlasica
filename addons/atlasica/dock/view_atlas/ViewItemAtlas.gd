@@ -2,38 +2,41 @@ tool
 extends Panel
 
 var is_hovering = false
-var is_dragging = false setget _set_is_dragging
 
 onready var animator:AnimationPlayer = $AnimationPlayer
 
+var item_name
 var item
 
-func init(name, item):
-	print(item)
+func init(item_name, item):
 	self.rect_size = Vector2(item.w, item.h)
 	self.rect_position = Vector2(item.x, item.y)
+	
+	self.item_name = item_name
 	self.item = item
 	
-	$Label.text = name
+	$Label.text = item_name
 
 func _ready():
 	animator.play("idle")
 
-func _on_ViewItemAtlas_gui_input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		_set_is_dragging(event.pressed)
-
-func _set_is_dragging(v):
-	if is_dragging != v:
-		if v: _on_drag()
-		else: _on_undrag()
-	is_dragging = v
-
-func _on_drag():
-	pass
+func get_drag_data(position):
 	
-func _on_undrag():
-	pass
+	# Create drag_preview
+	var sprite = TextureRect.new()
+	sprite.rect_position = -position
+	sprite.texture = Atlasica.get_sprite(item_name)
+	sprite.rect_size = Vector2(item.x, item.y)
+	var control = Control.new()
+	control.add_child(sprite)
+	set_drag_preview(control)
+	
+	# Fake file dragging
+	return {
+		"type" : "files",
+		"files" : [Atlasica._get_resource_path(item_name)],
+		"from" : Atlasica.RESOURCE_PATH
+	}
 
 func _on_ViewItemAtlas_mouse_entered():
 	if !is_hovering:

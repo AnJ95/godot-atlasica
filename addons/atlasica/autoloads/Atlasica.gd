@@ -83,11 +83,22 @@ func update_resources():
 		var sprite_data = atlas_data.sprites[sprite_name]
 		var resource = _create_sprite_resource(atlas_image, sprite_data)
 		
-		var path = RESOURCE_PATH + "/" + sprite_name + ".tres"
+		var path = _get_resource_path(sprite_name)
 		if ResourceSaver.save(path, resource) != OK:
 			printerr("Atlasica: Could not save sprite resource to %s" % path)
-	
-	
+
+var _sprites = {}
+func get_sprite(sprite_name):
+	if !_sprites.has(sprite_name):
+		var path = _get_resource_path(sprite_name)
+		if !Directory.new().file_exists(path):
+			printerr("Atlasica: Tried getting sprite %s but there is no resource at %s" % [sprite_name, path])
+			return null
+		_sprites[sprite_name] = load(path)
+	return _sprites[sprite_name]
+		
+func _get_resource_path(sprite_name):
+	return RESOURCE_PATH + "/" + sprite_name + ".tres"
 
 func _create_sprite_resource(atlas_image, sprite_data):
 	var resource:AtlasTexture = AtlasTexture.new()

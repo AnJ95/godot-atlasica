@@ -3,7 +3,6 @@
 [ext_resource path="res://addons/atlasica/assets/border.png" type="Texture" id=1]
 [ext_resource path="res://addons/atlasica/dock/view_atlas/ViewItemAtlas.gd" type="Script" id=2]
 
-
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 5, 5 )
@@ -13,7 +12,7 @@ margin_top = 1.0
 margin_bottom = 1.0
 draw_center = false
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "hover"
 length = 1.6
 loop = true
@@ -54,8 +53,7 @@ tracks/2/keys = {
 "values": [ 1.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=3]
 length = 3.0
 loop = true
 tracks/0/type = "value"
@@ -97,7 +95,7 @@ tracks/2/keys = {
 
 [node name="ViewItemAtlas" type="Panel"]
 modulate = Color( 0.384314, 1, 0.552941, 1 )
-self_modulate = Color( 1, 1, 1, 0.8 )
+self_modulate = Color( 1, 1, 1, 0.405279 )
 margin_right = 64.0
 margin_bottom = 64.0
 mouse_filter = 1
@@ -121,9 +119,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hover = SubResource( 3 )
-anims/idle = SubResource( 2 )
+anims/hover = SubResource( 2 )
+anims/idle = SubResource( 3 )
 blend_times = [ "hover", "idle", 0.4, "idle", "hover", 0.2 ]
-[connection signal="gui_input" from="." to="." method="_on_ViewItemAtlas_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_ViewItemAtlas_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_ViewItemAtlas_mouse_exited"]

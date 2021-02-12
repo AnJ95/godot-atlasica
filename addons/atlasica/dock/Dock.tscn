@@ -42,7 +42,7 @@ margin_bottom = 564.0
 margin_right = 303.0
 margin_bottom = 30.0
 text = "Atlas image"
-value = "res://addons/atlasica/assets/logo/logo256.png"
+value = "res://atlas.png"
 get_from_state_initially = "path_spritesheet_image"
 
 [node name="IconLabelInfo" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 3 )]
