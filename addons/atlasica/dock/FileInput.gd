@@ -11,7 +11,7 @@ var file_dialog_root
 var file_dialog
 
 func _ready():
-	var state = SpritesheetDragger.get_state()
+	var state = Atlasica.get_state()
 	if get_from_state_initially != null and state.get(get_from_state_initially) != null:
 		_set_value(state.get(get_from_state_initially), false)
 

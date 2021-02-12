@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/SpritesheetDragger/dock/IconLabel.gd" type="Script" id=1]
+[ext_resource path="res://addons/atlasica/dock/IconLabel.gd" type="Script" id=1]
 
 [node name="IconLabel" type="HBoxContainer" groups=[
 "IconLabel",

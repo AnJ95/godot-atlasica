@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logo256.png-5aaa5b2880b48ecc62a6ac0aba58f6f0.stex"
+path="res://.import/border.png-6716206da3d6331974c51cbb797ce6c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SpritesheetDragger/assets/logo/logo256.png"
-dest_files=[ "res://.import/logo256.png-5aaa5b2880b48ecc62a6ac0aba58f6f0.stex" ]
+source_file="res://addons/atlasica/assets/border.png"
+dest_files=[ "res://.import/border.png-6716206da3d6331974c51cbb797ce6c6.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logo1024.png-821b802256eabee85d1d13587722a880.stex"
+path="res://.import/logo1024.png-2f9ab0598b738a98cd61f40887ceac98.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SpritesheetDragger/assets/logo/logo1024.png"
-dest_files=[ "res://.import/logo1024.png-821b802256eabee85d1d13587722a880.stex" ]
+source_file="res://addons/atlasica/assets/logo/logo1024.png"
+dest_files=[ "res://.import/logo1024.png-2f9ab0598b738a98cd61f40887ceac98.stex" ]
 
 [params]
 

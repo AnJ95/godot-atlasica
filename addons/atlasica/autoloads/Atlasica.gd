@@ -3,8 +3,8 @@ extends Node
 
 signal state_changed(state)
 
-const State = preload("res://addons/SpritesheetDragger/state/State.gd")
-const STATE_RES_PATH = "user://spritesheetDragger.tres"
+const State = preload("res://addons/atlasica/state/State.gd")
+const STATE_RES_PATH = "user://atlasica.tres"
 
 func _enter_tree():
 	pass
@@ -20,10 +20,10 @@ func get_state()->State:
 		if ResourceLoader.exists(STATE_RES_PATH):
 			_state = ResourceLoader.load(STATE_RES_PATH)
 			if !_state:
-				printerr("SpritesheetDragger: Could not load state and settings from %s, resetting to default" % STATE_RES_PATH)
+				printerr("Atlasica: Could not load state and settings from %s, resetting to default" % STATE_RES_PATH)
 				_reset_state()
 		else:
-			print("SpritesheetDragger: No settings found, creating new and saving to %s" % STATE_RES_PATH)
+			print("Atlasica: No settings found, creating new and saving to %s" % STATE_RES_PATH)
 			_reset_state()
 			
 		_state.connect("state_changed", self, "_on_state_changed")
@@ -31,7 +31,7 @@ func get_state()->State:
 
 func _save_state():
 	if OK != ResourceSaver.save(STATE_RES_PATH, _state):
-		printerr("SpritesheetDragger: Could not save state and settings to %s" % STATE_RES_PATH)
+		printerr("Atlasica: Could not save state and settings to %s" % STATE_RES_PATH)
 		
 func _reset_state():
 	_state = State.new()

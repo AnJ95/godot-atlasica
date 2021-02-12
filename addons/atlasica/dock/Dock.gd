@@ -32,9 +32,9 @@ func _ready():
 			iconLabel.themed_node = themed_node
 
 func _on_FileInputImage_value_changed(value):
-	SpritesheetDragger.get_state().path_spritesheet_image = value
+	Atlasica.get_state().path_spritesheet_image = value
 func _on_FileInputData_value_changed(value):
-	SpritesheetDragger.get_state().path_spritesheet_data = value
+	Atlasica.get_state().path_spritesheet_data = value
 	
 func _on_state_changed(state):
 	iconLabelsPathImage[0].visible = !state.has_configured_spritesheet_image_path()
@@ -58,6 +58,6 @@ func _on_TabContainer_tab_changed(tab):
 	if tab == 1: update_tab_atlas()
 	
 func update_tab_atlas():
-	var state = SpritesheetDragger.get_state()
+	var state = Atlasica.get_state()
 	$TabContainer/Atlas/ViewAtlas.init(state.get_atlas_image(), state.get_atlas_data())
 	

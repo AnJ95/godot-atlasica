@@ -40,7 +40,7 @@ func has_valid_spritesheet_data(get_result=false):
 	# Check if parsing goes well
 	var result = JSON.parse(text)
 	if result.error != OK:
-		printerr("SpritesheetDragger: Could load parse atlas data json!")
+		printerr("Atlasica: Could load parse atlas data json!")
 	
 	# Return json if required by flag
 	if get_result:	return result.result

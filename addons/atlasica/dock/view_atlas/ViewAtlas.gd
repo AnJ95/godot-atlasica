@@ -1,7 +1,7 @@
 tool
 extends ScrollContainer
 
-const ViewItem = preload("res://addons/SpritesheetDragger/dock/view_atlas/ViewItemAtlas.tscn")
+const ViewItem = preload("res://addons/atlasica/dock/view_atlas/ViewItemAtlas.tscn")
 
 func init(atlas_image, atlas_data:Array):
 	

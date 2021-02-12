@@ -1,17 +1,17 @@
 tool
 extends EditorPlugin
 
-const BASE_PATH = "res://addons/SpritesheetDragger/"
+const BASE_PATH = "res://addons/atlasica/"
 const AUTOLOADS_PATH = BASE_PATH + "autoloads/"
 const CUSTOM_TYPES_PATH = BASE_PATH + "components/"
 
-const Dock = preload("res://addons/SpritesheetDragger/dock/Dock.tscn")
+const Dock = preload("res://addons/atlasica/dock/Dock.tscn")
 var dock
 
-var icon:Texture = preload("res://addons/SpritesheetDragger/assets/logo/logo16.png")
+var icon:Texture = preload("res://addons/atlasica/assets/logo/logo16.png")
 
 const autoloads = {
-	"SpritesheetDragger": AUTOLOADS_PATH + "SpritesheetDragger.gd",
+	"Atlasica": AUTOLOADS_PATH + "Atlasica.gd",
 }
 
 var custom_types = {}
@@ -32,17 +32,17 @@ func _enter_tree():
 
 	# Add the loaded scene to the docks.
 	dock = create_dock()
-	add_control_to_bottom_panel(dock, "SpritesheetDragger")
+	add_control_to_bottom_panel(dock, "Atlasica")
 	
 	# Emit signal to initially update all ui
-	SpritesheetDragger.call_deferred("emit_signal", "state_changed", SpritesheetDragger.get_state())
+	Atlasica.call_deferred("emit_signal", "state_changed", Atlasica.get_state())
 	
 
 func create_dock():
 	var dock = Dock.instance()
 	dock.plugin = self
 	dock.ei = get_editor_interface()
-	SpritesheetDragger.connect("state_changed", dock, "_on_state_changed")
+	Atlasica.connect("state_changed", dock, "_on_state_changed")
 	return dock
 
 

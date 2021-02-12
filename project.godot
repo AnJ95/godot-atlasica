@@ -15,16 +15,16 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Spritesheet Dragger"
+config/name="Atlasica"
 config/icon="res://icon.png"
 
 [autoload]
 
-SpritesheetDragger="*res://addons/SpritesheetDragger/autoloads/SpritesheetDragger.gd"
+Atlasica="*res://addons/atlasica/autoloads/Atlasica.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "SpritesheetDragger" )
+enabled=PoolStringArray( "atlasica" )
 
 [rendering]
 
