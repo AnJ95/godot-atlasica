@@ -22,18 +22,13 @@ onready var iconLabelsPathData = [
 	$TabContainer/Settings/VBoxContainer2/IconLabelFileValid
 ]
 
-onready var iconLabels = iconLabelsPathImage + iconLabelsPathData + [
-	$TabContainer/Settings/VBoxContainer/FileInputImage/HBoxContainer/IconLabel,
-	$TabContainer/Settings/VBoxContainer2/FileInputData/HBoxContainer/IconLabel
-]
-
 func _ready():
 	if ei:
 		fileInputImage.file_dialog_root = ei.get_base_control()
 		fileInputData.file_dialog_root = ei.get_base_control()
 		
 		var themed_node:Control = ei.get_inspector()
-		for iconLabel in iconLabels:
+		for iconLabel in get_tree().get_nodes_in_group("IconLabel"):
 			iconLabel.themed_node = themed_node
 
 func _on_FileInputImage_value_changed(value):
@@ -51,4 +46,18 @@ func _on_state_changed(state):
 	iconLabelsPathData[1].visible = !state.has_valid_spritesheet_data_path()
 	iconLabelsPathData[2].visible = !state.has_valid_spritesheet_data()
 	iconLabelsPathData[3].visible = !iconLabelsPathData[2].visible
+	
+	var is_all_valid = state.is_valid()
+	$TabContainer.set_tab_disabled(1, !is_all_valid)
+	$TabContainer.set_tab_disabled(2, !is_all_valid)
+
+func _on_BtnUpdateAtlas_pressed():
+	pass # TODO
+
+func _on_TabContainer_tab_changed(tab):
+	if tab == 1: update_tab_atlas()
+	
+func update_tab_atlas():
+	var state = SpritesheetDragger.get_state()
+	$TabContainer/Atlas/ViewAtlas.init(state.get_atlas_image(), state.get_atlas_data())
 	

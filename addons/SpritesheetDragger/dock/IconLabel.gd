@@ -4,8 +4,13 @@ extends HBoxContainer
 enum EditorIcons {
 	StatusError,
 	StatusWarning,
-	StatusSuccess
-	Filesystem
+	StatusSuccess,
+	Filesystem,
+	ToolMove,
+	ToolScale,
+	AtlasTexture,
+	AnimationTrackList, # TODO unused
+	Tools # TODO unused
 }
 
 var themed_node:Control = null setget _set_themed_node

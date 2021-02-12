@@ -16,9 +16,13 @@ func has_configured_spritesheet_image_path():
 	return path_spritesheet_image != null
 func has_valid_spritesheet_image_path():
 	return has_configured_spritesheet_image_path() and Directory.new().file_exists(path_spritesheet_image)
-func has_valid_spritesheet_image():
-	if !has_configured_spritesheet_image_path() or !ResourceLoader.exists(path_spritesheet_image, "Image"): return false
-	return ResourceLoader.load(path_spritesheet_image, "Image") != null
+func has_valid_spritesheet_image(get_result=false):
+	if !has_configured_spritesheet_image_path() or !ResourceLoader.exists(path_spritesheet_image, "Image"): return false	
+	var result = ResourceLoader.load(path_spritesheet_image, "Image")
+	
+	# return actual result if required by flag
+	if get_result:	return result
+	else:			return result != null
 	
 func has_configured_spritesheet_data_path():
 	return path_spritesheet_data != null
@@ -37,15 +41,17 @@ func has_valid_spritesheet_data(get_result=false):
 	var result = JSON.parse(text)
 	if result.error != OK:
 		printerr("SpritesheetDragger: Could load parse atlas data json!")
-		return false
 	
 	# Return json if required by flag
-	return result if get_result else true
+	if get_result:	return result.result
+	else:			return result.error == OK
+
+
+func get_atlas_image():
+	return has_valid_spritesheet_image(true)
 	
 func get_atlas_data():
-	var json = has_valid_spritesheet_data(true)
-	if json != false:
-		print(json.result)
+	return has_valid_spritesheet_data(true)
 
 func _set_path_spritesheet_image(v):
 	path_spritesheet_image = v
