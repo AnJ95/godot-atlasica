@@ -1,9 +1,6 @@
 tool
 extends Control
 
-var ei:EditorInterface
-var plugin:EditorPlugin
-
 onready var fileInputImage = $TabContainer/Settings/VBoxContainer/FileInputImage
 onready var fileInputData = $TabContainer/Settings/VBoxContainer2/FileInputData
 
@@ -23,13 +20,15 @@ onready var iconLabelsPathData = [
 ]
 
 func _ready():
-	if ei:
-		fileInputImage.file_dialog_root = ei.get_base_control()
-		fileInputData.file_dialog_root = ei.get_base_control()
+	if Atlasica.ei:
+		fileInputImage.file_dialog_root = Atlasica.ei.get_base_control()
+		fileInputData.file_dialog_root = Atlasica.ei.get_base_control()
 		
-		var themed_node:Control = ei.get_inspector()
+		var themed_node:Control = Atlasica.ei.get_inspector()
 		for iconLabel in get_tree().get_nodes_in_group("IconLabel"):
 			iconLabel.themed_node = themed_node
+			
+		
 
 func _on_FileInputImage_value_changed(value):
 	Atlasica.get_state().path_spritesheet_image = value
@@ -52,7 +51,7 @@ func _on_state_changed(state):
 	$TabContainer.set_tab_disabled(2, !is_all_valid)
 
 func _on_BtnUpdateAtlas_pressed():
-	pass # TODO
+	Atlasica.update_resources()
 
 func _on_TabContainer_tab_changed(tab):
 	if tab == 1: update_tab_atlas()

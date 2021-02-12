@@ -37,6 +37,7 @@ func _on_Button_pressed():
 	file_dialog.mode = FileDialog.MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_RESOURCES
 	file_dialog.connect("file_selected", self, "_on_FileDialog_file_selected")
+	# var extensions = ResourceLoader.get_recognized_extensions_for_type("Texture")
 	if has_valid_file():
 		file_dialog.current_path = value
 	

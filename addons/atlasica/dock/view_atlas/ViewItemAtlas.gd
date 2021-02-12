@@ -6,21 +6,22 @@ var is_dragging = false setget _set_is_dragging
 
 onready var animator:AnimationPlayer = $AnimationPlayer
 
-func init(item):
+var item
+
+func init(name, item):
+	print(item)
 	self.rect_size = Vector2(item.w, item.h)
 	self.rect_position = Vector2(item.x, item.y)
+	self.item = item
 	
-	$Label.text = item.name
+	$Label.text = name
 
 func _ready():
 	animator.play("idle")
 
 func _on_ViewItemAtlas_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		if event.pressed:
-			_set_is_dragging(true)
-		else:
-			_set_is_dragging(false)
+		_set_is_dragging(event.pressed)
 
 func _set_is_dragging(v):
 	if is_dragging != v:
@@ -30,6 +31,7 @@ func _set_is_dragging(v):
 
 func _on_drag():
 	pass
+	
 func _on_undrag():
 	pass
 

@@ -24,6 +24,8 @@ func _enter_tree():
 		add_autoload_singleton(key, autoloads[key])
 	yield(get_tree(), "idle_frame")
 	
+	Atlasica.ei = get_editor_interface()
+	
 	# Add custom types
 	for key in custom_types.keys():
 		var type = custom_types[key]
@@ -36,12 +38,9 @@ func _enter_tree():
 	
 	# Emit signal to initially update all ui
 	Atlasica.call_deferred("emit_signal", "state_changed", Atlasica.get_state())
-	
 
 func create_dock():
 	var dock = Dock.instance()
-	dock.plugin = self
-	dock.ei = get_editor_interface()
 	Atlasica.connect("state_changed", dock, "_on_state_changed")
 	return dock
 
