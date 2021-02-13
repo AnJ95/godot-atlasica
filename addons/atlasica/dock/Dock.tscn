@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/atlasica/dock/FileInput.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/atlasica/dock/Dock.gd" type="Script" id=2]
 [ext_resource path="res://addons/atlasica/dock/IconLabel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/atlasica/dock/view_atlas/ViewAtlas.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/atlasica/dock/Inspector.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -26,6 +27,7 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Settings" type="HBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -126,40 +128,29 @@ margin_bottom = 55.0
 text = "Push this button after you
 re-exported the atlas files!"
 
-[node name="Atlas" type="MarginContainer" parent="TabContainer"]
-visible = false
+[node name="Atlas" type="HBoxContainer" parent="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-custom_constants/margin_right = 0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 0
-
-[node name="ViewAtlas" parent="TabContainer/Atlas" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1016.0
-margin_bottom = 564.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas"]
-margin_right = 1016.0
-margin_bottom = 122.0
+margin_right = 262.0
+margin_bottom = 210.0
 mouse_filter = 2
 size_flags_vertical = 0
 
 [node name="IconLabelDrag" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 1016.0
+margin_right = 262.0
 mouse_filter = 2
 icon = 6
-text = "Left click and drag to get sub image"
+text = "Left click and drag to get texture"
 
 [node name="IconLabelPan" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 34.0
-margin_right = 1016.0
+margin_right = 262.0
 margin_bottom = 64.0
 mouse_filter = 2
 icon = 4
@@ -167,16 +158,21 @@ text = "Right click and pan to move around"
 
 [node name="IconLabelZoom" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 68.0
-margin_right = 1016.0
+margin_right = 262.0
 margin_bottom = 98.0
 mouse_filter = 2
 icon = 5
 text = "Scroll to zoom"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 102.0
-margin_right = 1016.0
-margin_bottom = 122.0
+margin_right = 262.0
+margin_bottom = 106.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
+margin_top = 110.0
+margin_right = 262.0
+margin_bottom = 130.0
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer"]
@@ -184,6 +180,74 @@ margin_right = 142.0
 margin_bottom = 20.0
 focus_mode = 0
 text = "Reset pan and zoom"
+
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
+margin_top = 134.0
+margin_right = 262.0
+margin_bottom = 138.0
+
+[node name="Inspector" type="PanelContainer" parent="TabContainer/Atlas/VBoxContainer"]
+margin_top = 142.0
+margin_right = 262.0
+margin_bottom = 210.0
+script = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas/VBoxContainer/Inspector"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 255.0
+margin_bottom = 61.0
+
+[node name="LblName" type="Label" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer"]
+margin_right = 248.0
+margin_bottom = 14.0
+text = "name"
+
+[node name="Spacer" type="Control" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer"]
+margin_top = 18.0
+margin_right = 248.0
+margin_bottom = 18.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer"]
+margin_top = 22.0
+margin_right = 248.0
+margin_bottom = 36.0
+
+[node name="Label" type="Label" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer/HBoxContainer"]
+margin_right = 216.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Atlas position:"
+
+[node name="LblPos" type="Label" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer/HBoxContainer"]
+margin_left = 220.0
+margin_right = 248.0
+margin_bottom = 14.0
+text = "(0,0)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer"]
+margin_top = 40.0
+margin_right = 248.0
+margin_bottom = 54.0
+
+[node name="Label" type="Label" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer/HBoxContainer2"]
+margin_right = 216.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Sprite size:"
+
+[node name="LblSize" type="Label" parent="TabContainer/Atlas/VBoxContainer/Inspector/VBoxContainer/HBoxContainer2"]
+margin_left = 220.0
+margin_right = 248.0
+margin_bottom = 14.0
+text = "(0,0)"
+
+[node name="ViewAtlas" parent="TabContainer/Atlas" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 266.0
+margin_right = 1016.0
+margin_bottom = 564.0
 
 [node name="List of Sprites" type="MarginContainer" parent="TabContainer"]
 visible = false
@@ -202,3 +266,5 @@ custom_constants/margin_bottom = 0
 [connection signal="value_changed" from="TabContainer/Settings/VBoxContainer2/FileInputData" to="." method="_on_FileInputData_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/VBoxContainer3/BtnUpdateAtlas" to="." method="_on_BtnUpdateAtlas_pressed"]
 [connection signal="pressed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer/Button" to="TabContainer/Atlas/ViewAtlas" method="_on_reset"]
+[connection signal="item_hovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_ViewAtlas_item_hovered"]
+[connection signal="item_unhovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_ViewAtlas_item_unhovered"]

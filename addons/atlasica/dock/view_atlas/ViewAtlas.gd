@@ -3,6 +3,9 @@ extends Control
 
 const ViewItem = preload("res://addons/atlasica/dock/view_atlas/ViewItemAtlas.tscn")
 
+signal item_hovered(item_name, item)
+signal item_unhovered(item_name, item)
+
 # Clip content and inputs
 func _ready():
 	rect_clip_content = true
@@ -23,7 +26,7 @@ func init(atlas_image, atlas_data:Dictionary):
 	
 	for item_name in atlas_data.sprites.keys():
 		var item = ViewItem.instance()
-		item.init(item_name, atlas_data.sprites[item_name])
+		item.init(self, item_name, atlas_data.sprites[item_name])
 		root.add_child(item)
 
 const SCROLL_FACTOR = 1.08
@@ -60,4 +63,4 @@ func _on_ViewAtlas_gui_input(event):
 
 func _on_reset():
 	$CenterContainer/TextureRect.rect_scale = Vector2(1, 1)
-	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5, -rect_size.y * 0.5 + 1)
+	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5 + 1, -rect_size.y * 0.5 + 1)

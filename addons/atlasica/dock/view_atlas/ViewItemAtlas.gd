@@ -5,16 +5,18 @@ var is_hovering = false
 
 onready var animator:AnimationPlayer = $AnimationPlayer
 
+var parent
 var item_name
 var item
 
 var is_dragging_other = false
 
-func init(item_name, item):
+func init(parent, item_name, item):
 	self.rect_size = Vector2(item.w, item.h)
 	self.rect_position = Vector2(item.x, item.y)
 	self.rect_pivot_offset = self.rect_size * 0.5
 	
+	self.parent = parent
 	self.item_name = item_name
 	self.item = item
 	
@@ -54,6 +56,9 @@ func _on_ViewItemAtlas_mouse_entered():
 		is_hovering = true
 		animator.play("on_hover")
 		$TextureRect.texture = Atlasica.get_sprite(item_name)
+		
+		# Notify parent
+		parent.emit_signal("item_hovered", item_name, item)
 
 func _on_ViewItemAtlas_mouse_exited():
 	if is_dragging_other:
@@ -63,6 +68,9 @@ func _on_ViewItemAtlas_mouse_exited():
 		is_hovering = false
 		animator.play("on_unhover")
 		$TextureRect.texture = null
+		
+		# Notify parent
+		parent.emit_signal("item_unhovered", item_name, item)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "on_hover":
