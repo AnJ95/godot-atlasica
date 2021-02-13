@@ -33,6 +33,9 @@ func get_drag_data(position):
 	control.add_child(sprite)
 	set_drag_preview(control)
 	
+	# Trigger unhover effects
+	_on_ViewItemAtlas_mouse_exited()
+	
 	# Fake file dragging
 	return {
 		"type" : "files",

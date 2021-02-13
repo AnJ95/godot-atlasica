@@ -1,10 +1,16 @@
 tool
-extends ScrollContainer
+extends Control
 
 const ViewItem = preload("res://addons/atlasica/dock/view_atlas/ViewItemAtlas.tscn")
 
+# Clip content and inputs
+func _ready():
+	rect_clip_content = true
+	call_deferred("_on_reset")
+func _clips_input():
+	return true
+
 func init(atlas_image, atlas_data:Dictionary):
-	
 	var root = $CenterContainer/TextureRect
 	
 	var texture:TextureRect = root
@@ -54,4 +60,4 @@ func _on_ViewAtlas_gui_input(event):
 
 func _on_reset():
 	$CenterContainer/TextureRect.rect_scale = Vector2(1, 1)
-	$CenterContainer.rect_position = Vector2(0, 0)
+	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5, -rect_size.y * 0.5 + 1)
