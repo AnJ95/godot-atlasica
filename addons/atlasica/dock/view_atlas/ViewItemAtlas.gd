@@ -8,6 +8,8 @@ onready var animator:AnimationPlayer = $AnimationPlayer
 var item_name
 var item
 
+var is_dragging_other = false
+
 func init(item_name, item):
 	self.rect_size = Vector2(item.w, item.h)
 	self.rect_position = Vector2(item.x, item.y)
@@ -22,7 +24,6 @@ func _ready():
 	animator.play("initial")
 
 func get_drag_data(position):
-	
 	# Create drag_preview
 	var sprite = TextureRect.new()
 	sprite.rect_position = -position
@@ -39,13 +40,22 @@ func get_drag_data(position):
 		"from" : Atlasica.RESOURCE_PATH
 	}
 
+# Only to check if something else is being dragged
+func can_drop_data(_position, _data):
+	is_dragging_other = true
+	return false
+
+# Called deferred to make sure can_drop_data is called before when dragging sth else
 func _on_ViewItemAtlas_mouse_entered():
-	if !is_hovering:
+	if !is_hovering and !is_dragging_other:
 		is_hovering = true
 		animator.play("on_hover")
 		$TextureRect.texture = Atlasica.get_sprite(item_name)
 
 func _on_ViewItemAtlas_mouse_exited():
+	if is_dragging_other:
+		is_dragging_other = false
+		
 	if is_hovering:
 		is_hovering = false
 		animator.play("on_unhover")
