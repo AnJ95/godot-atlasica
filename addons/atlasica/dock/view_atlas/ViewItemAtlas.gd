@@ -6,7 +6,7 @@ var is_hovering = false
 onready var animator:AnimationPlayer = $AnimationPlayer
 
 var parent
-var item_name
+var item_name:String
 var item
 
 var is_dragging_other = false
@@ -26,6 +26,8 @@ func _ready():
 	animator.play("initial")
 
 func get_drag_data(position):
+	if !enabled: return null
+	
 	# Create drag_preview
 	var sprite = TextureRect.new()
 	sprite.rect_position = -position
@@ -53,6 +55,8 @@ func can_drop_data(_position, _data):
 
 # Called deferred to make sure can_drop_data is called before when dragging sth else
 func _on_ViewItemAtlas_mouse_entered():
+	if !enabled: return
+	
 	if !is_hovering and !is_dragging_other:
 		is_hovering = true
 		animator.play("on_hover")
@@ -62,13 +66,14 @@ func _on_ViewItemAtlas_mouse_entered():
 		parent.emit_signal("item_hovered", item_name, item)
 
 func _on_ViewItemAtlas_mouse_exited():
+	if !enabled: return
+	
 	if is_dragging_other:
 		is_dragging_other = false
 		
 	if is_hovering:
 		is_hovering = false
 		animator.play("on_unhover")
-		$TextureRect.texture = null
 		
 		# Notify parent
 		parent.emit_signal("item_unhovered", item_name, item)
@@ -76,3 +81,24 @@ func _on_ViewItemAtlas_mouse_exited():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "on_hover":
 		animator.play("hover")
+	if anim_name == "on_unhover":
+		$TextureRect.texture = null
+	if anim_name == "on_disabled":
+		animator.play("disabled")
+
+func _on_filter_changed(filter:String):
+	if filter.length() == 0:
+		set_filter_enabled(true)
+	else:
+		# Does a simple case-sensitive expression match, where "*" matches zero or more arbitrary characters and "?" matches any single character except a period (".").
+		set_filter_enabled(item_name.to_lower().match("*"+filter.to_lower()+"*"))
+	
+var enabled = true
+func set_filter_enabled(enabled):
+	if !self.enabled and enabled:
+		animator.play("on_enabled")
+		mouse_default_cursor_shape = CURSOR_POINTING_HAND
+	if self.enabled and !enabled:
+		animator.play("on_disabled")
+		mouse_default_cursor_shape = CURSOR_ARROW
+	self.enabled = enabled

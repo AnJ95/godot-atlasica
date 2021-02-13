@@ -138,7 +138,7 @@ margin_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas"]
 margin_right = 262.0
-margin_bottom = 210.0
+margin_bottom = 238.0
 mouse_filter = 2
 size_flags_vertical = 0
 
@@ -169,10 +169,30 @@ margin_top = 102.0
 margin_right = 262.0
 margin_bottom = 106.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 110.0
 margin_right = 262.0
-margin_bottom = 130.0
+margin_bottom = 134.0
+
+[node name="Label" type="Label" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "Filter:"
+
+[node name="LineEditFilterAtlas" type="LineEdit" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer2"]
+margin_left = 41.0
+margin_right = 262.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
+margin_top = 138.0
+margin_right = 262.0
+margin_bottom = 158.0
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer"]
@@ -182,14 +202,15 @@ focus_mode = 0
 text = "Reset pan and zoom"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
-margin_top = 134.0
+margin_top = 162.0
 margin_right = 262.0
-margin_bottom = 138.0
+margin_bottom = 166.0
 
 [node name="Inspector" type="PanelContainer" parent="TabContainer/Atlas/VBoxContainer"]
-margin_top = 142.0
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 170.0
 margin_right = 262.0
-margin_bottom = 210.0
+margin_bottom = 238.0
 script = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas/VBoxContainer/Inspector"]
@@ -265,6 +286,7 @@ custom_constants/margin_bottom = 0
 [connection signal="value_changed" from="TabContainer/Settings/VBoxContainer/FileInputImage" to="." method="_on_FileInputImage_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/VBoxContainer2/FileInputData" to="." method="_on_FileInputData_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/VBoxContainer3/BtnUpdateAtlas" to="." method="_on_BtnUpdateAtlas_pressed"]
+[connection signal="text_changed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer2/LineEditFilterAtlas" to="TabContainer/Atlas/ViewAtlas" method="_on_LineEditFilterAtlas_text_changed"]
 [connection signal="pressed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer/Button" to="TabContainer/Atlas/ViewAtlas" method="_on_reset"]
 [connection signal="item_hovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_ViewAtlas_item_hovered"]
 [connection signal="item_unhovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_ViewAtlas_item_unhovered"]

@@ -67,3 +67,8 @@ func _on_reset():
 	scale = 1
 	$CenterContainer/TextureRect.rect_scale = Vector2(scale, scale)
 	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5 + 1, -rect_size.y * 0.5 + 1)
+
+
+func _on_LineEditFilterAtlas_text_changed(new_text):
+	for child in $CenterContainer/TextureRect.get_children():
+		child._on_filter_changed(new_text)
