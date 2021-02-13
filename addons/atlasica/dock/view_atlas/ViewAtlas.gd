@@ -4,15 +4,21 @@ extends ScrollContainer
 const ViewItem = preload("res://addons/atlasica/dock/view_atlas/ViewItemAtlas.tscn")
 
 func init(atlas_image, atlas_data:Dictionary):
-	var texture:TextureRect = $CenterContainer/TextureRect
+	
+	var root = $CenterContainer/TextureRect
+	
+	var texture:TextureRect = root
 	texture.texture = atlas_image
 	
 	texture.rect_pivot_offset = texture.rect_size * 0.5
 	
+	for child in root.get_children():
+		child.queue_free()
+	
 	for item_name in atlas_data.sprites.keys():
 		var item = ViewItem.instance()
 		item.init(item_name, atlas_data.sprites[item_name])
-		$CenterContainer/TextureRect.add_child(item)
+		root.add_child(item)
 
 const SCROLL_FACTOR = 1.08
 

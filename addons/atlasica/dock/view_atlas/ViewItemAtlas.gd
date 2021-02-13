@@ -11,6 +11,7 @@ var item
 func init(item_name, item):
 	self.rect_size = Vector2(item.w, item.h)
 	self.rect_position = Vector2(item.x, item.y)
+	self.rect_pivot_offset = self.rect_size * 0.5
 	
 	self.item_name = item_name
 	self.item = item
@@ -18,7 +19,7 @@ func init(item_name, item):
 	$Label.text = item_name
 
 func _ready():
-	animator.play("idle")
+	animator.play("initial")
 
 func get_drag_data(position):
 	
@@ -41,9 +42,15 @@ func get_drag_data(position):
 func _on_ViewItemAtlas_mouse_entered():
 	if !is_hovering:
 		is_hovering = true
-		animator.play("hover")
+		animator.play("on_hover")
+		$TextureRect.texture = Atlasica.get_sprite(item_name)
 
 func _on_ViewItemAtlas_mouse_exited():
 	if is_hovering:
 		is_hovering = false
-		animator.play("idle")
+		animator.play("on_unhover")
+		$TextureRect.texture = null
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "on_hover":
+		animator.play("hover")
