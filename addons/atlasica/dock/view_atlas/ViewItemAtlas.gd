@@ -33,6 +33,7 @@ func get_drag_data(position):
 	sprite.rect_size = Vector2(item.x, item.y)
 	var control = Control.new()
 	control.add_child(sprite)
+	control.rect_scale = Vector2(parent.scale, parent.scale)
 	set_drag_preview(control)
 	
 	# Trigger unhover effects

@@ -6,6 +6,8 @@ const ViewItem = preload("res://addons/atlasica/dock/view_atlas/ViewItemAtlas.ts
 signal item_hovered(item_name, item)
 signal item_unhovered(item_name, item)
 
+var scale = 1
+
 # Clip content and inputs
 func _ready():
 	rect_clip_content = true
@@ -40,9 +42,10 @@ func _on_ViewAtlas_gui_input(event):
 		# Scroll
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:
-				$CenterContainer/TextureRect.rect_scale *= SCROLL_FACTOR
+				scale *= SCROLL_FACTOR
 			if event.button_index == BUTTON_WHEEL_DOWN:
-				$CenterContainer/TextureRect.rect_scale /= SCROLL_FACTOR
+				scale /= SCROLL_FACTOR
+			$CenterContainer/TextureRect.rect_scale = Vector2(scale, scale)
 		
 		# Pan start/end
 		if event.button_index == BUTTON_RIGHT:
@@ -52,15 +55,15 @@ func _on_ViewAtlas_gui_input(event):
 			else:
 				is_panning = false
 	
+	# Pan move
 	if event is InputEventMouseMotion:
 		if is_panning:
 			var pan_pos = get_global_mouse_position()
 			var d_pan = pan_pos - last_pan_pos
-			
 			$CenterContainer.rect_position += d_pan
-			
 			last_pan_pos = pan_pos
 
 func _on_reset():
-	$CenterContainer/TextureRect.rect_scale = Vector2(1, 1)
+	scale = 1
+	$CenterContainer/TextureRect.rect_scale = Vector2(scale, scale)
 	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5 + 1, -rect_size.y * 0.5 + 1)
