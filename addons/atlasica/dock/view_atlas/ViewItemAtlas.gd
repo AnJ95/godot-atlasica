@@ -43,6 +43,7 @@ func set_filter_enabled(enabled):
 		animator.play("on_enabled")
 	if self.enabled and !enabled:
 		animator.play("on_disabled")
+	self.enabled = enabled
 	$SpriteDragger.set_filter_enabled(enabled)
 
 

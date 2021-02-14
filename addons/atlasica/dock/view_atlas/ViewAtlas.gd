@@ -11,7 +11,7 @@ var scale = 1
 # Clip content and inputs
 func _ready():
 	rect_clip_content = true
-	call_deferred("_on_reset")
+	_on_reset()
 func _clips_input():
 	return true
 
@@ -66,7 +66,7 @@ func _on_ViewAtlas_gui_input(event):
 func _on_reset():
 	scale = 1
 	$CenterContainer/TextureRect.rect_scale = Vector2(scale, scale)
-	$CenterContainer.rect_position = Vector2(-$CenterContainer/TextureRect.rect_size.x * 0.5 + 1, -rect_size.y * 0.5 + 1)
+	$CenterContainer.rect_position = Vector2(0,0)
 
 
 func _on_LineEditFilterAtlas_text_changed(new_text):

@@ -23,6 +23,7 @@ func _ready():
 		for iconLabel in get_tree().get_nodes_in_group("IconLabel"):
 			iconLabel.themed_node = themed_node
 	
+	optionButtonOrder.clear()
 	optionButtonOrder.add_item("Alphabetic")
 	optionButtonOrder.add_item("Position in Atlas")
 	optionButtonOrder.add_item("Width")

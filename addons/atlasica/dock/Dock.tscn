@@ -39,6 +39,7 @@ custom_constants/separation = 30
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Settings"]
 margin_right = 295.0
 margin_bottom = 564.0
+size_flags_vertical = 3
 
 [node name="FileInputZip" parent="TabContainer/Settings/VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 295.0
@@ -100,20 +101,20 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Atlas"]
-margin_right = 400.0
-margin_bottom = 242.0
+margin_right = 420.0
+margin_bottom = 564.0
 mouse_filter = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
 [node name="IconLabelDrag" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 400.0
+margin_right = 420.0
 mouse_filter = 2
 icon = 6
 text = "Left click and drag to get texture"
 
 [node name="IconLabelPan" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 34.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 64.0
 mouse_filter = 2
 icon = 4
@@ -121,7 +122,7 @@ text = "Right click and pan to move around"
 
 [node name="IconLabelZoom" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 68.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 98.0
 mouse_filter = 2
 icon = 5
@@ -129,12 +130,12 @@ text = "Scroll to zoom"
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 102.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 106.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 110.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 134.0
 
 [node name="Label" type="Label" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer2"]
@@ -145,7 +146,7 @@ text = "Filter:"
 
 [node name="LineEditFilterAtlas" type="LineEdit" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer2"]
 margin_left = 41.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -154,7 +155,7 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 138.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 158.0
 mouse_filter = 2
 
@@ -166,19 +167,17 @@ text = "Reset pan and zoom"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 162.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 166.0
 
 [node name="Inspector" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 5 )]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 170.0
-margin_right = 400.0
-margin_bottom = 242.0
+margin_right = 420.0
+margin_bottom = 282.0
 
 [node name="ViewAtlas" parent="TabContainer/Atlas" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 404.0
+margin_left = 424.0
 margin_right = 1016.0
 margin_bottom = 564.0
 
@@ -192,11 +191,12 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/List of Sprites"]
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 564.0
+size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/List of Sprites/VBoxContainer"]
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 48.0
 columns = 2
 
@@ -208,7 +208,7 @@ text = "Filter:"
 
 [node name="LineEditFilterList" type="LineEdit" parent="TabContainer/List of Sprites/VBoxContainer/GridContainer"]
 margin_left = 45.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -224,7 +224,7 @@ text = "Order:"
 [node name="OptionButtonOrder" type="OptionButton" parent="TabContainer/List of Sprites/VBoxContainer/GridContainer"]
 margin_left = 45.0
 margin_top = 28.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 48.0
 text = "Alphabetic"
 items = [ "Alphabetic", null, false, 0, null, "Position in Atlas", null, false, 1, null, "Width", null, false, 2, null, "Height", null, false, 3, null, "Size", null, false, 4, null ]
@@ -232,25 +232,26 @@ selected = 0
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/List of Sprites/VBoxContainer"]
 margin_top = 52.0
-margin_right = 400.0
+margin_right = 420.0
 margin_bottom = 56.0
 
 [node name="Inspector" parent="TabContainer/List of Sprites/VBoxContainer" instance=ExtResource( 5 )]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 60.0
-margin_right = 400.0
-margin_bottom = 132.0
+margin_right = 420.0
+margin_bottom = 172.0
 preview_sprite = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/List of Sprites"]
-margin_left = 404.0
+margin_left = 424.0
 margin_right = 1016.0
 margin_bottom = 564.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="ViewList" parent="TabContainer/List of Sprites/ScrollContainer" instance=ExtResource( 6 )]
-margin_right = 612.0
+margin_right = 592.0
 margin_bottom = 0.0
 rect_clip_content = true
 size_flags_horizontal = 3

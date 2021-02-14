@@ -3,8 +3,6 @@
 [ext_resource path="res://addons/atlasica/dock/view_atlas/ViewAtlas.gd" type="Script" id=2]
 
 [node name="ViewAtlas" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_right = -1024.0
 margin_bottom = -600.0
 rect_clip_content = true
@@ -18,10 +16,6 @@ __meta__ = {
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 1153.0
-margin_bottom = 2177.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -30,10 +24,6 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
-margin_left = 576.0
-margin_top = 1088.0
-margin_right = 576.0
-margin_bottom = 1088.0
 mouse_filter = 2
 stretch_mode = 3
 __meta__ = {
