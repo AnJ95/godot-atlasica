@@ -3,14 +3,16 @@ extends Control
 
 onready var fileInputZip = $TabContainer/Settings/VBoxContainer/FileInputZip
 
-
-
 onready var iconLabels = [
 	$TabContainer/Settings/VBoxContainer/IconLabelInfo,
 	$TabContainer/Settings/VBoxContainer/IconLabelFileDoesNotExist,
 	$TabContainer/Settings/VBoxContainer/IconLabelFileNotValid,
 	$TabContainer/Settings/VBoxContainer/IconLabelFileValid
 ]
+
+onready var viewAtlas = $TabContainer/Atlas/ViewAtlas
+onready var viewList = $"TabContainer/List of Sprites/ScrollContainer/ViewList"
+onready var optionButtonOrder:OptionButton = $"TabContainer/List of Sprites/VBoxContainer/GridContainer/OptionButtonOrder"
 
 func _ready():
 	if Atlasica.ei:
@@ -20,6 +22,12 @@ func _ready():
 		var themed_node:Control = Atlasica.ei.get_inspector()
 		for iconLabel in get_tree().get_nodes_in_group("IconLabel"):
 			iconLabel.themed_node = themed_node
+	
+	optionButtonOrder.add_item("Alphabetic")
+	optionButtonOrder.add_item("Position in Atlas")
+	optionButtonOrder.add_item("Width")
+	optionButtonOrder.add_item("Height")
+	optionButtonOrder.add_item("Size")
 			
 func _on_FileInputZip_value_changed(value):
 	Atlasica.get_state().path_zip = value
@@ -44,7 +52,7 @@ func _on_TabContainer_tab_changed(tab):
 	
 func update_tab_atlas():
 	var state = Atlasica.get_state()
-	$TabContainer/Atlas/ViewAtlas.init(state.get_atlas_image(), state.get_atlas_layout())
+	viewAtlas.init(state.get_atlas_image(), state.get_atlas_layout())
 func update_tab_list():
 	var state = Atlasica.get_state()
-	$"TabContainer/List of Sprites/ScrollContainer/ViewList".init(state.get_atlas_image(), state.get_atlas_layout())
+	viewList.init(state.get_atlas_image(), state.get_atlas_layout(), optionButtonOrder.selected)
