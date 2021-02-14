@@ -188,7 +188,6 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="Inspector" parent="TabContainer/List of Sprites" instance=ExtResource( 5 )]
-margin_top = 0.0
 margin_right = 138.0
 margin_bottom = 564.0
 
@@ -200,8 +199,6 @@ size_flags_horizontal = 3
 scroll_horizontal_enabled = false
 
 [node name="ViewList" parent="TabContainer/List of Sprites/ScrollContainer" instance=ExtResource( 6 )]
-margin_left = 0.0
-margin_right = 0.0
 margin_bottom = 0.0
 rect_clip_content = true
 size_flags_horizontal = 3
@@ -210,3 +207,7 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="TabContainer/Settings/VBoxContainer3/BtnUpdateAtlas" to="." method="_on_BtnUpdateAtlas_pressed"]
 [connection signal="text_changed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer2/LineEditFilterAtlas" to="TabContainer/Atlas/ViewAtlas" method="_on_LineEditFilterAtlas_text_changed"]
 [connection signal="pressed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer/Button" to="TabContainer/Atlas/ViewAtlas" method="_on_reset"]
+[connection signal="item_hovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_item_hovered"]
+[connection signal="item_unhovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_item_unhovered"]
+[connection signal="item_hovered" from="TabContainer/List of Sprites/ScrollContainer/ViewList" to="TabContainer/List of Sprites/Inspector" method="_on_item_hovered"]
+[connection signal="item_unhovered" from="TabContainer/List of Sprites/ScrollContainer/ViewList" to="TabContainer/List of Sprites/Inspector" method="_on_item_unhovered"]

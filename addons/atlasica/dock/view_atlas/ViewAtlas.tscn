@@ -30,6 +30,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 576.0
+margin_top = 1088.0
+margin_right = 576.0
+margin_bottom = 1088.0
 mouse_filter = 2
 stretch_mode = 3
 __meta__ = {

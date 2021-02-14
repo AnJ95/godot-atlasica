@@ -3,8 +3,6 @@
 [ext_resource path="res://addons/atlasica/dock/view_list/ViewList.gd" type="Script" id=1]
 
 [node name="ViewList" type="GridContainer"]
-margin_left = 142.0
-margin_right = 142.0
 margin_bottom = 564.0
 script = ExtResource( 1 )
 __meta__ = {

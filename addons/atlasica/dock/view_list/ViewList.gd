@@ -8,13 +8,6 @@ signal item_unhovered(item_name, item)
 
 var scale = 1
 
-# Clip content and inputs
-func _ready():
-	rect_clip_content = true
-	
-func _clips_input():
-	return true
-
 func init(atlas_image, atlas_data:Dictionary):
 	var root = self
 	
