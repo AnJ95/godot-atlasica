@@ -28,7 +28,6 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Settings" type="HBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -171,6 +170,7 @@ margin_right = 400.0
 margin_bottom = 166.0
 
 [node name="Inspector" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 5 )]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 170.0
 margin_right = 400.0
 margin_bottom = 242.0
@@ -183,6 +183,7 @@ margin_right = 1016.0
 margin_bottom = 564.0
 
 [node name="List of Sprites" type="HBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -225,6 +226,9 @@ margin_left = 45.0
 margin_top = 28.0
 margin_right = 400.0
 margin_bottom = 48.0
+text = "Alphabetic"
+items = [ "Alphabetic", null, false, 0, null, "Position in Atlas", null, false, 1, null, "Width", null, false, 2, null, "Height", null, false, 3, null, "Size", null, false, 4, null ]
+selected = 0
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/List of Sprites/VBoxContainer"]
 margin_top = 52.0
@@ -232,6 +236,7 @@ margin_right = 400.0
 margin_bottom = 56.0
 
 [node name="Inspector" parent="TabContainer/List of Sprites/VBoxContainer" instance=ExtResource( 5 )]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 60.0
 margin_right = 400.0
 margin_bottom = 132.0
