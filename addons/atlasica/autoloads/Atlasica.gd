@@ -9,6 +9,7 @@ const State = preload("res://addons/atlasica/state/State.gd")
 const STATE_RES_PATH = "user://atlasica.tres"
 
 const RESOURCE_PATH = "res://atlasica"
+const RESOURCE_RAW_PATH = "res://atlasica/raw"
 
 func _enter_tree():
 	pass
@@ -45,16 +46,23 @@ func _on_state_changed(): # redirect signal from resource
 	var state = get_state()
 	emit_signal("state_changed", state)
 	_save_state()
-	
-func update_resources():
+
+func _ensure_resource_directories():
 	var dir:Directory = Directory.new()
-	
 	# Create dir if not exists
 	if !dir.dir_exists(RESOURCE_PATH):
 		if dir.make_dir(RESOURCE_PATH) != OK:
 			printerr("Atlasica: Could not create directory %s for texture resources!" % RESOURCE_PATH)
-		ei.get_resource_filesystem().scan()
-		
+			return
+	if !dir.dir_exists(RESOURCE_RAW_PATH):
+		if dir.make_dir(RESOURCE_RAW_PATH) != OK:
+			printerr("Atlasica: Could not create directory %s for raw spritesheet and json!" % RESOURCE_RAW_PATH)
+			return
+			
+	ei.get_resource_filesystem().scan()
+
+func update_resources():
+	_ensure_resource_directories()
 #	var list_names_prev = []
 #	var list_names_new = []
 #
@@ -76,11 +84,11 @@ func update_resources():
 #	print("prev: ", list_names_prev)
 #	print("new: ", list_names_new)
 	
-	var atlas_image = get_state().get_atlas_image()
-	var atlas_data = get_state().get_atlas_data()
+	var atlas_image = get_state()._copy_atlas_image()
+	var atlas_layout = get_state()._copy_atlas_layout()
 	
-	for sprite_name in atlas_data.sprites.keys():
-		var sprite_data = atlas_data.sprites[sprite_name]
+	for sprite_name in atlas_layout.sprites.keys():
+		var sprite_data = atlas_layout.sprites[sprite_name]
 		var resource = _create_sprite_resource(atlas_image, sprite_data)
 		
 		var path = _get_resource_path(sprite_name)

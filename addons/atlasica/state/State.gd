@@ -5,52 +5,52 @@ signal state_changed()
 
 export(String) var path_zip = null setget _set_path_zip
 
-export(String) var path_spritesheet_image = null setget _set_path_spritesheet_image
-export(String) var path_spritesheet_data = null setget _set_path_spritesheet_data
+const FILE_LAYOUT = "layout.json"
+const FILE_ATLAS = "spritesheet.png"
+
+var _atlas_image
+var _atlas_layout
+var _loaded_gdunzip
 
 func is_valid():
-	return has_valid_spritesheet_image() and has_valid_spritesheet_data()
+	return has_valid_zip()
 
+func has_configured_zip_path():
+	return path_zip != null
 func has_valid_zip_path():
 	return Directory.new().file_exists(path_zip)
 func has_valid_zip(get_result=false):
 	var f:File = File.new()
 	
 	# Instance the gdunzip script
-	var gdunzip = load("res://addons/atlasica/scripts/gdunzip.gd").new()
+	_loaded_gdunzip = load("res://addons/atlasica/scripts/gdunzip.gd").new()
 
 	# Check if zip can be opened and if files are present
-	if !gdunzip.load(path_zip):
+	if !_loaded_gdunzip.load(path_zip):
+		printerr("Atlasica: Could not uncompress zip file")
 		return null if get_result else false
-	if !gdunzip.files.has("layout.json"):
+	if !_loaded_gdunzip.files.has(FILE_LAYOUT):
+		printerr("Atlasica: Could not find %s in zip file" % FILE_LAYOUT)
 		return null if get_result else false
-	if !gdunzip.files.has("spritesheet.png"):
+	if !_loaded_gdunzip.files.has(FILE_ATLAS):
+		printerr("Atlasica: Could not find %s in zip file" % FILE_ATLAS)
 		return null if get_result else false
 	
-	return gdunzip if get_result else true
+	return _loaded_gdunzip if get_result else true
 
-func has_configured_spritesheet_image_path():
-	return path_spritesheet_image != null
-func has_valid_spritesheet_image_path():
-	return has_configured_spritesheet_image_path() and Directory.new().file_exists(path_spritesheet_image)
-func has_valid_spritesheet_image(get_result=false):
-	if !has_configured_spritesheet_image_path() or !ResourceLoader.exists(path_spritesheet_image, "Image"): return false	
-	var result = ResourceLoader.load(path_spritesheet_image, "Image")
-	
-	# return actual result if required by flag
-	if get_result:	return result
-	else:			return result != null
-	
-func has_configured_spritesheet_data_path():
-	return path_spritesheet_data != null
-func has_valid_spritesheet_data_path():
-	return has_configured_spritesheet_data_path() and Directory.new().file_exists(path_spritesheet_data)
-func has_valid_spritesheet_data(get_result=false):
-	if !has_valid_spritesheet_data_path(): return false
-		
-	# Load file contents
+func _copy_atlas_image():
+	if _uncompress_and_save(FILE_ATLAS):
+		_atlas_image = load(Atlasica.RESOURCE_RAW_PATH + "/" + FILE_ATLAS)
+	return _atlas_image
+func _copy_atlas_layout():
+	if _uncompress_and_save(FILE_LAYOUT):
+		_atlas_layout = _parse_json(Atlasica.RESOURCE_RAW_PATH + "/" + FILE_LAYOUT)
+	return _atlas_layout
+
+func _parse_json(path):
+	# open File as string
 	var file = File.new()
-	file.open(path_spritesheet_data, file.READ)
+	file.open(path, file.READ)
 	var text = file.get_as_text()
 	file.close()
 	
@@ -58,26 +58,45 @@ func has_valid_spritesheet_data(get_result=false):
 	var result = JSON.parse(text)
 	if result.error != OK:
 		printerr("Atlasica: Could load parse atlas data json!")
+		return null
 	
-	# Return json if required by flag
-	if get_result:	return result.result
-	else:			return result.error == OK
-
+	return result.result
 
 func get_atlas_image():
-	return has_valid_spritesheet_image(true)
+	if !_atlas_image:
+		var path = Atlasica.RESOURCE_RAW_PATH + "/" + FILE_ATLAS
+		if Directory.new().file_exists(path):
+			_atlas_image = load(path)
+	return _atlas_image
+func get_atlas_layout():
+	if !_atlas_layout:
+		var path = Atlasica.RESOURCE_RAW_PATH + "/" + FILE_LAYOUT
+		if Directory.new().file_exists(path):
+			_atlas_layout = _parse_json(path)
+	return _atlas_layout
+
+func _uncompress_and_save(file_name):
+	if !_loaded_gdunzip:
+		printerr("Atlasica: Tried getting atlas data before uncompressing zip file. Try pressing the update button in the settings tab!")
+		return false
+		
+	Atlasica._ensure_resource_directories()
+	var result = _loaded_gdunzip.uncompress(file_name)
 	
-func get_atlas_data():
-	return has_valid_spritesheet_data(true)
+	if !result:
+		printerr("Atlasica: Could not uncompress %s/%s. Try re-exporting the zip from the SpriteBuilder!" % [path_zip, file_name])
+		return false
+	
+	var f:File = File.new()
+	f.open(Atlasica.RESOURCE_RAW_PATH + "/" + file_name, f.WRITE)
+	f.store_buffer(result)
+	f.close()
+	return true
 
-func _set_path_spritesheet_image(v):
-	path_spritesheet_image = v
-	emit_signal("state_changed")
-
-func _set_path_spritesheet_data(v):
-	path_spritesheet_data = v
-	emit_signal("state_changed")
 
 func _set_path_zip(v):
 	path_zip = v
+	_loaded_gdunzip = null
+	_atlas_image = null
+	_atlas_layout = null
 	emit_signal("state_changed")
