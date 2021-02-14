@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/atlasica/dock/view_list/ViewItemList.gd" type="Script" id=1]
+
+[node name="ViewItemList" type="HBoxContainer"]
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+mouse_filter = 2
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="."]
+margin_left = 34.0
+margin_top = 8.0
+margin_right = 34.0
+margin_bottom = 22.0

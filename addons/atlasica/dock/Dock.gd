@@ -40,7 +40,11 @@ func _on_BtnUpdateAtlas_pressed():
 
 func _on_TabContainer_tab_changed(tab):
 	if tab == 1: update_tab_atlas()
+	if tab == 2: update_tab_list()
 	
 func update_tab_atlas():
 	var state = Atlasica.get_state()
 	$TabContainer/Atlas/ViewAtlas.init(state.get_atlas_image(), state.get_atlas_layout())
+func update_tab_list():
+	var state = Atlasica.get_state()
+	$"TabContainer/List of Sprites/ViewList".init(state.get_atlas_image(), state.get_atlas_layout())
