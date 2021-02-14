@@ -16,22 +16,30 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 393.0
-margin_bottom = 61.0
+margin_bottom = 65.0
 
 [node name="LblName" type="Label" parent="VBoxContainer"]
 margin_right = 386.0
 margin_bottom = 14.0
 text = "name"
 
-[node name="Spacer" type="Control" parent="VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 margin_top = 18.0
 margin_right = 386.0
 margin_bottom = 18.0
+size_flags_horizontal = 3
+expand = true
+stretch_mode = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer"]
 margin_top = 22.0
 margin_right = 386.0
-margin_bottom = 36.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 26.0
+margin_right = 386.0
+margin_bottom = 40.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 margin_right = 354.0
@@ -46,9 +54,9 @@ margin_bottom = 14.0
 text = "(0,0)"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 40.0
+margin_top = 44.0
 margin_right = 386.0
-margin_bottom = 54.0
+margin_bottom = 58.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 margin_right = 354.0
@@ -61,3 +69,4 @@ margin_left = 358.0
 margin_right = 386.0
 margin_bottom = 14.0
 text = "(0,0)"
+[connection signal="resized" from="VBoxContainer/TextureRect" to="." method="_on_TextureRect_resized"]

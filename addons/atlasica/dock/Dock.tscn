@@ -190,6 +190,7 @@ margin_bottom = -4.0
 [node name="Inspector" parent="TabContainer/List of Sprites" instance=ExtResource( 5 )]
 margin_right = 138.0
 margin_bottom = 564.0
+preview_sprite = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/List of Sprites"]
 margin_left = 142.0

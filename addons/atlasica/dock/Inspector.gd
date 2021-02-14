@@ -1,19 +1,36 @@
 tool
 extends PanelContainer
 
+export var preview_sprite = false
+
 var cur_item_name = null
 
 func _ready():
 	modulate.a = 0
+	
+onready var lblName:Label = $VBoxContainer/LblName
+onready var lblPos:Label = $VBoxContainer/HBoxContainer/LblPos
+onready var lblSize:Label = $VBoxContainer/HBoxContainer2/LblSize
+onready var textureRect:TextureRect = $VBoxContainer/TextureRect
 
 func _on_item_hovered(item_name, item):
 	cur_item_name = item_name
 	
-	$VBoxContainer/LblName.text = item_name
-	$VBoxContainer/HBoxContainer/LblPos.text = "(%d, %d)" % [item.x, item.y]
-	$VBoxContainer/HBoxContainer2/LblSize.text = "(%d, %d)" % [item.w, item.h]
+	lblName.text = item_name
+	lblPos.text = "(%d, %d)" % [item.x, item.y]
+	lblSize.text = "(%d, %d)" % [item.w, item.h]
+	
+	if preview_sprite:
+		textureRect.texture = Atlasica.get_sprite(item_name)
+	textureRect.visible = preview_sprite
+	
 	modulate.a = 1
 
 func _on_item_unhovered(_item_name, _item):
 	cur_item_name = null
-	modulate.a = 1
+	modulate.a = 0
+
+
+func _on_TextureRect_resized():
+	textureRect.rect_min_size.y = textureRect.rect_size.x
+	textureRect.rect_size.y = textureRect.rect_size.x
