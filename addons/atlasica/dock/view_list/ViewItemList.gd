@@ -10,6 +10,8 @@ var item
 onready var tween:Tween = $Tween
 onready var textureRect:TextureRect = $HBoxContainer/TextureRect
 
+const ENABLE_EFFECT_TIME = 0.3
+const DISABLE_EFFECT_TIME = 0.3
 const HOVER_EFFECT_TIME = 0.2
 const UNHOVER_EFFECT_TIME = 0.4
 
@@ -36,6 +38,24 @@ func _set_height(v):
 	rect_min_size.y = v
 	rect_size.y = v
 
+func _on_filter_changed(filter:String):
+	if filter.length() == 0:
+		set_filter_enabled(true)
+	else:
+		# Does a simple case-sensitive expression match, where "*" matches zero or more arbitrary characters and "?" matches any single character except a period (".").
+		set_filter_enabled(item_name.to_lower().match("*"+filter.to_lower()+"*"))
+	
+var enabled = true
+func set_filter_enabled(enabled):
+	if !self.enabled and enabled:
+		show()
+		tween.interpolate_property(self, "modulate:a", null, 1.0, ENABLE_EFFECT_TIME, Tween.TRANS_QUAD, Tween.EASE_IN)
+	if self.enabled and !enabled:
+		tween.interpolate_property(self, "modulate:a", null, 0.0, DISABLE_EFFECT_TIME, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		tween.interpolate_callback(self, DISABLE_EFFECT_TIME, "hide")
+	self.enabled = enabled
+	tween.start()
+	$SpriteDragger.set_filter_enabled(enabled)
 
 func _on_SpriteDragger_on_hover():
 	tween.interpolate_property(textureRect, "rect_scale", null, Vector2(1.5, 1.5), HOVER_EFFECT_TIME, Tween.TRANS_QUAD, Tween.EASE_IN)
@@ -43,6 +63,6 @@ func _on_SpriteDragger_on_hover():
 	parent.emit_signal("item_hovered", item_name, item)
 	
 func _on_SpriteDragger_on_unhover():
-	tween.interpolate_property(textureRect, "rect_scale", null, Vector2(1, 1), UNHOVER_EFFECT_TIME, Tween.TRANS_QUAD, Tween.EASE_IN)
+	tween.interpolate_property(textureRect, "rect_scale", null, Vector2(1, 1), UNHOVER_EFFECT_TIME, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	tween.start()
 	parent.emit_signal("item_unhovered", item_name, item)
