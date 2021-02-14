@@ -47,4 +47,4 @@ func update_tab_atlas():
 	$TabContainer/Atlas/ViewAtlas.init(state.get_atlas_image(), state.get_atlas_layout())
 func update_tab_list():
 	var state = Atlasica.get_state()
-	$"TabContainer/List of Sprites/ViewList".init(state.get_atlas_image(), state.get_atlas_layout())
+	$"TabContainer/List of Sprites/ScrollContainer/ViewList".init(state.get_atlas_image(), state.get_atlas_layout())

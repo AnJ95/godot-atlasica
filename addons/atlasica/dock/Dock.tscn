@@ -192,8 +192,19 @@ margin_top = 0.0
 margin_right = 138.0
 margin_bottom = 564.0
 
-[node name="ViewList" parent="TabContainer/List of Sprites" instance=ExtResource( 6 )]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/List of Sprites"]
+margin_left = 142.0
+margin_right = 142.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+scroll_horizontal_enabled = false
+
+[node name="ViewList" parent="TabContainer/List of Sprites/ScrollContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
 rect_clip_content = true
+size_flags_horizontal = 3
 [connection signal="tab_changed" from="TabContainer" to="." method="_on_TabContainer_tab_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/VBoxContainer/FileInputZip" to="." method="_on_FileInputZip_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/VBoxContainer3/BtnUpdateAtlas" to="." method="_on_BtnUpdateAtlas_pressed"]

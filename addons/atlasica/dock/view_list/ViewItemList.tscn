@@ -1,17 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/atlasica/dock/view_list/ViewItemList.gd" type="Script" id=1]
+[ext_resource path="res://addons/atlasica/dock/SpriteDragger.tscn" type="PackedScene" id=2]
 
-[node name="ViewItemList" type="HBoxContainer"]
-margin_right = 30.0
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="ViewItemList" type="PanelContainer"]
+margin_left = 38.0
+margin_right = 72.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 34.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
 margin_right = 30.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
@@ -19,8 +32,14 @@ mouse_filter = 2
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="HBoxContainer"]
 margin_left = 34.0
 margin_top = 8.0
 margin_right = 34.0
 margin_bottom = 22.0
+
+[node name="SpriteDragger" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 34.0
+margin_bottom = 30.0
