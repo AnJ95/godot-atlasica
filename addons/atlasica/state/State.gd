@@ -41,6 +41,7 @@ func has_valid_zip(get_result=false):
 func _copy_atlas_image():
 	if _uncompress_and_save(FILE_ATLAS):
 		_atlas_image = load(Atlasica.RESOURCE_RAW_PATH + "/" + FILE_ATLAS)
+		Atlasica.ei.get_resource_filesystem().update_file(Atlasica.RESOURCE_RAW_PATH + "/" + FILE_ATLAS)
 	return _atlas_image
 func _copy_atlas_layout():
 	if _uncompress_and_save(FILE_LAYOUT):

@@ -92,8 +92,18 @@ func update_resources():
 		var resource = _create_sprite_resource(atlas_image, sprite_data)
 		
 		var path = _get_resource_path(sprite_name)
+		
+		# Check if resource existed earlier
+		var previously_existed = ResourceLoader.exists(path, "Image")
+		
+		# Try to save new resource
 		if ResourceSaver.save(path, resource) != OK:
 			printerr("Atlasica: Could not save sprite resource to %s" % path)
+		
+		# Update resource if it previously existed
+		if previously_existed:
+			Atlasica.ei.get_resource_filesystem().update_file(path)
+		
 
 var _sprites = {}
 func get_sprite(sprite_name):
