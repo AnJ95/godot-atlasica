@@ -126,7 +126,6 @@ margin_right = 335.0
 margin_bottom = 48.0
 size_flags_horizontal = 0
 text = "Import zip"
-value = "res://data.zip"
 get_from_state_initially = "path_zip"
 
 [node name="IconLabelFileDoesNotExist" parent="TabContainer/Setup/GridContainer/VBoxContainer" instance=ExtResource( 3 )]
@@ -343,15 +342,28 @@ mouse_filter = 2
 icon = 5
 text = "Scroll to zoom"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 102.0
+margin_right = 142.0
+margin_bottom = 122.0
+mouse_filter = 2
+size_flags_horizontal = 0
+
+[node name="Button" type="Button" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer"]
+margin_right = 142.0
+margin_bottom = 20.0
+focus_mode = 0
+text = "Reset pan and zoom"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
+margin_top = 126.0
 margin_right = 420.0
-margin_bottom = 106.0
+margin_bottom = 130.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
-margin_top = 110.0
+margin_top = 134.0
 margin_right = 420.0
-margin_bottom = 134.0
+margin_bottom = 158.0
 
 [node name="Label" type="Label" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer2"]
 margin_top = 5.0
@@ -368,18 +380,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Atlas/VBoxContainer"]
-margin_top = 138.0
-margin_right = 420.0
-margin_bottom = 158.0
-mouse_filter = 2
-
-[node name="Button" type="Button" parent="TabContainer/Atlas/VBoxContainer/HBoxContainer"]
-margin_right = 142.0
-margin_bottom = 20.0
-focus_mode = 0
-text = "Reset pan and zoom"
-
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Atlas/VBoxContainer"]
 margin_top = 162.0
 margin_right = 420.0
@@ -390,6 +390,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_top = 170.0
 margin_right = 420.0
 margin_bottom = 564.0
+preview_sprite = true
 
 [node name="ViewAtlas" parent="TabContainer/Atlas" instance=ExtResource( 4 )]
 margin_left = 424.0
@@ -479,8 +480,8 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="TabContainer/Setup/GridContainer2/VBoxContainer2/HBoxContainer2/LinkButtonGitHub" to="." method="_on_LinkButtonGitHub_pressed"]
 [connection signal="pressed" from="TabContainer/Setup/GridContainer2/VBoxContainer/HBoxContainer/LinkButtonSpriteBuilder" to="." method="_on_LinkButtonSpriteBuilder_pressed"]
 [connection signal="pressed" from="TabContainer/Setup/GridContainer2/VBoxContainer/HBoxContainer2/ButtonUpdate" to="." method="_on_ButtonUpdate_pressed"]
-[connection signal="text_changed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer2/LineEditFilterAtlas" to="TabContainer/Atlas/ViewAtlas" method="_on_LineEditFilterAtlas_text_changed"]
 [connection signal="pressed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer/Button" to="TabContainer/Atlas/ViewAtlas" method="_on_reset"]
+[connection signal="text_changed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer2/LineEditFilterAtlas" to="TabContainer/Atlas/ViewAtlas" method="_on_LineEditFilterAtlas_text_changed"]
 [connection signal="item_hovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_item_hovered"]
 [connection signal="item_unhovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_item_unhovered"]
 [connection signal="text_changed" from="TabContainer/List of Sprites/VBoxContainer/GridContainer/LineEditFilterList" to="TabContainer/List of Sprites/ScrollContainer/ViewList" method="_on_LineEditFilterList_text_changed"]

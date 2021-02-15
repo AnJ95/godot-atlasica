@@ -7,6 +7,8 @@ var cur_item_name = null
 
 func _ready():
 	modulate.a = 0
+	textureRect.rect_min_size.y = textureRect.rect_size.x
+	textureRect.rect_size.y = textureRect.rect_size.x
 	
 onready var lblName:Label = $VBoxContainer/LblName
 onready var lblPos:Label = $VBoxContainer/HBoxContainer/LblPos
@@ -29,10 +31,14 @@ func _on_item_hovered(item_name, item):
 	modulate.a = 1
 
 func _on_item_unhovered(_item_name, _item):
-	cur_item_name = null
-	modulate.a = 0
+	pass
 
 func _on_TextureRect_resized():
 	var textureRect:TextureRect = $VBoxContainer/TextureRect
-	textureRect.rect_min_size.y = textureRect.rect_size.x
-	textureRect.rect_size.y = textureRect.rect_size.x
+	
+
+func _on_Button_pressed():
+	if cur_item_name == null:
+		return
+	var path = Atlasica._get_resource_path(cur_item_name)
+	Atlasica.ei.select_file(path)
