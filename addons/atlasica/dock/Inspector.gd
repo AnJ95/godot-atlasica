@@ -1,5 +1,5 @@
 tool
-extends PanelContainer
+extends Container
 
 export var preview_sprite = false
 

@@ -389,7 +389,7 @@ margin_bottom = 166.0
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 170.0
 margin_right = 420.0
-margin_bottom = 282.0
+margin_bottom = 564.0
 
 [node name="ViewAtlas" parent="TabContainer/Atlas" instance=ExtResource( 4 )]
 margin_left = 424.0
