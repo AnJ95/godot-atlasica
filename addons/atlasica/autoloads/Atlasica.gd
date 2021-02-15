@@ -3,25 +3,21 @@ extends Node
 
 signal state_changed(state)
 
-var ei:EditorInterface
-
 const State = preload("res://addons/atlasica/state/State.gd")
 const STATE_RES_PATH = "user://atlasica.tres"
 
 const RESOURCE_PATH = "res://atlasica"
 const RESOURCE_RAW_PATH = "res://atlasica/raw"
 
-func _enter_tree():
-	pass
-	
-func override_state(path_spritesheet_file, path_spritesheet_data):
-	pass
+var ei:EditorInterface
 
-
+var _orphaned_resources = []
 var _state
+var _sprites = {}
+
 func get_state()->State:
+	# Singleton; if it does not exist, try loading from user://atlasica.tres, otherwise create new
 	if !_state:
-		
 		if ResourceLoader.exists(STATE_RES_PATH):
 			_state = ResourceLoader.load(STATE_RES_PATH)
 			if !_state:
@@ -63,26 +59,19 @@ func _ensure_resource_directories():
 
 func update_resources():
 	_ensure_resource_directories()
-#	var list_names_prev = []
-#	var list_names_new = []
-#
-#	# Collect previous sprites by iterating resources in folder
-#	if dir.open(RESOURCE_PATH) == OK:
-#		dir.list_dir_begin()
-#		var file_name = dir.get_next()
-#		while file_name != "":
-#			if !dir.current_is_dir():
-#				list_names_prev.append(file_name)
-#			file_name = dir.get_next()
-#	else:
-#		printerr("Atlasica: Could not open directory %s to update texture resources!" % RESOURCE_PATH)
-#
-#	# Collect sprites as they should be after updating
-#	var atlas_data = get_state().get_atlas_data()
-#	for sprite_data in atlas_data:
-#		list_names_new.append(sprite_data.name)
-#	print("prev: ", list_names_prev)
-#	print("new: ", list_names_new)
+	var file_names_prev = []
+
+	# Collect previous sprites by iterating resources in folder
+	var dir:Directory = Directory.new()
+	if dir.open(RESOURCE_PATH) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				file_names_prev.append(file_name)
+			file_name = dir.get_next()
+	else:
+		printerr("Atlasica: Could not open directory %s to check for previously existing resources!" % RESOURCE_PATH)
 	
 	var atlas_image = get_state()._copy_atlas_image()
 	var atlas_layout = get_state()._copy_atlas_layout()
@@ -96,6 +85,9 @@ func update_resources():
 		# Check if resource existed earlier
 		var previously_existed = ResourceLoader.exists(path, "Image")
 		
+		# Also erase this from list of previously existing files
+		file_names_prev.erase(sprite_name + ".tres")
+		
 		# Try to save new resource
 		if ResourceSaver.save(path, resource) != OK:
 			printerr("Atlasica: Could not save sprite resource to %s" % path)
@@ -103,9 +95,11 @@ func update_resources():
 		# Update resource if it previously existed
 		if previously_existed:
 			Atlasica.ei.get_resource_filesystem().update_file(path)
+	
+	_orphaned_resources = []
+	for orphan_name in file_names_prev:
+		_orphaned_resources.append(orphan_name)
 		
-
-var _sprites = {}
 func get_sprite(sprite_name):
 	if !_sprites.has(sprite_name):
 		var path = _get_resource_path(sprite_name)

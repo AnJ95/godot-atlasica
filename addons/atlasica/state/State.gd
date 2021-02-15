@@ -12,9 +12,6 @@ var _atlas_image
 var _atlas_layout
 var _loaded_gdunzip
 
-func is_valid():
-	return has_valid_zip()
-
 func has_configured_zip_path():
 	return path_zip != null
 func has_valid_zip_path():

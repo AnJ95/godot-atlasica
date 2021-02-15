@@ -17,7 +17,7 @@ __meta__ = {
 get_from_state_initially = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 290.0
+margin_right = 330.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
@@ -31,15 +31,15 @@ icon = 3
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
 margin_left = 110.0
-margin_right = 290.0
+margin_right = 330.0
 margin_bottom = 30.0
-rect_min_size = Vector2( 180, 0 )
+rect_min_size = Vector2( 220, 0 )
 size_flags_horizontal = 3
 text = "Select file..."
 caret_position = 14
 
 [node name="Button" type="ToolButton" parent="."]
-margin_right = 290.0
+margin_right = 330.0
 margin_bottom = 30.0
 mouse_default_cursor_shape = 2
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
