@@ -16,7 +16,9 @@ _global_script_class_icons={
 [application]
 
 config/name="Atlasica"
-config/icon="res://icon.png"
+config/icon="res://addons/atlasica/assets/logo/logo1024.png"
+config/macos_native_icon="res://addons/atlasica/assets/logo/logo1024.png"
+config/windows_native_icon="res://addons/atlasica/assets/logo/logo1024.png"
 
 [autoload]
 

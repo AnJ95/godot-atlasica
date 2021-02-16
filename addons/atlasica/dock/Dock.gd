@@ -1,24 +1,35 @@
 tool
 extends Control
 
-onready var fileInputZip = $TabContainer/Setup/GridContainer/VBoxContainer/FileInputZip
+onready var fileInputZip = $TabContainer/Setup/VBoxContainer/GridContainer/VBoxContainer/FileInputZip
 
 onready var iconLabels = [
-	$TabContainer/Setup/GridContainer/VBoxContainer/IconLabelFileDoesNotExist,
-	$TabContainer/Setup/GridContainer/VBoxContainer/IconLabelFileNotValid,
-	$TabContainer/Setup/GridContainer/VBoxContainer/IconLabelFileValid
+	$TabContainer/Setup/VBoxContainer/GridContainer/VBoxContainer/IconLabelFileDoesNotExist,
+	$TabContainer/Setup/VBoxContainer/GridContainer/VBoxContainer/IconLabelFileNotValid,
+	$TabContainer/Setup/VBoxContainer/GridContainer/VBoxContainer/IconLabelFileValid
 ]
+
+onready var viewOrphan = $TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/ViewOrphan
 
 onready var viewAtlas = $TabContainer/Atlas/ViewAtlas
 onready var viewList = $"TabContainer/List of Sprites/ScrollContainer/ViewList"
 onready var optionButtonOrder:OptionButton = $"TabContainer/List of Sprites/VBoxContainer/GridContainer/OptionButtonOrder"
 
-onready var gridSetupValid = $TabContainer/Setup/GridContainer2
-onready var btnUpdate:Button = $TabContainer/Setup/GridContainer2/VBoxContainer/HBoxContainer2/ButtonUpdate
-onready var checkUpdate:CheckBox = $TabContainer/Setup/GridContainer2/VBoxContainer/HBoxContainer2/CheckBoxUpdate
-onready var btnRevealResourceDir:Button = $TabContainer/Setup/GridContainer2/VBoxContainer2/HBoxContainer/ButtonRevealResourceDir
+onready var gridSetupValid = $TabContainer/Setup/VBoxContainer/GridContainer2
+onready var btnUpdate:Button = $TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/HBoxContainer2/ButtonUpdate
+onready var checkUpdate:CheckBox = $TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/HBoxContainer2/CheckBoxUpdate
+onready var btnRevealResourceDir:Button = $TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer2/HBoxContainer/ButtonRevealResourceDir
 onready var tween:Tween = $Tween
+
+
 func _ready():
+	optionButtonOrder.clear()
+	optionButtonOrder.add_item("Alphabetic")
+	optionButtonOrder.add_item("Position in Atlas")
+	optionButtonOrder.add_item("Width")
+	optionButtonOrder.add_item("Height")
+	optionButtonOrder.add_item("Size")
+	
 	if Atlasica.ei:
 		# Dialogs must be in editor base control
 		fileInputZip.file_dialog_root = Atlasica.ei.get_base_control()
@@ -26,14 +37,11 @@ func _ready():
 		var themed_node:Control = Atlasica.ei.get_inspector()
 		for iconLabel in get_tree().get_nodes_in_group("IconLabel"):
 			iconLabel.themed_node = themed_node
-	
-	optionButtonOrder.clear()
-	optionButtonOrder.add_item("Alphabetic")
-	optionButtonOrder.add_item("Position in Atlas")
-	optionButtonOrder.add_item("Width")
-	optionButtonOrder.add_item("Height")
-	optionButtonOrder.add_item("Size")
 			
+	_on_state_changed(Atlasica.get_state())
+	viewOrphan.update_orphans(Atlasica._orphaned_resources)
+	
+
 func _on_FileInputZip_value_changed(value):
 	Atlasica.get_state().path_zip = value
 	
@@ -82,4 +90,5 @@ func _on_ButtonRevealResourceDir_pressed():
 func _on_ButtonUpdate_pressed():
 	if Atlasica.get_state().has_valid_zip():
 		Atlasica.update_resources()
-		#Atlasica._orphaned_resources
+		viewOrphan.update_orphans(Atlasica._orphaned_resources)
+		

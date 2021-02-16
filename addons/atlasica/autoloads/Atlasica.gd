@@ -98,8 +98,9 @@ func update_resources():
 	
 	_orphaned_resources = []
 	for orphan_name in file_names_prev:
-		_orphaned_resources.append(orphan_name)
-		
+		if orphan_name.ends_with(".tres"):
+			_orphaned_resources.append(orphan_name.rstrip(".tres"))
+	
 func get_sprite(sprite_name):
 	if !_sprites.has(sprite_name):
 		var path = _get_resource_path(sprite_name)
@@ -108,6 +109,20 @@ func get_sprite(sprite_name):
 			return null
 		_sprites[sprite_name] = load(path)
 	return _sprites[sprite_name]
+
+func get_layout(sprite_name):
+	var atlas_layout = get_state().get_atlas_layout()
+	if atlas_layout == null or !atlas_layout.sprites.has(sprite_name):
+		printerr("Atlasica: Tried getting layout from sprite %s but it does not seem to exist" % [sprite_name])
+		return null
+	return atlas_layout.sprites[sprite_name]
+
+func get_metadata(sprite_name):
+	var atlas_layout = get_state().get_atlas_layout()
+	if atlas_layout == null or !atlas_layout.sprites.has(sprite_name):
+		printerr("Atlasica: Tried getting metadata from sprite %s but it does not seem to exist" % [sprite_name])
+		return null
+	return atlas_layout.sprites[sprite_name].metadata
 		
 func _get_resource_path(sprite_name):
 	return RESOURCE_PATH + "/" + sprite_name + ".tres"
