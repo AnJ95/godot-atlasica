@@ -2,7 +2,7 @@ tool
 extends Container
 
 const ImportSettingNames = [
-	"Mipmaps", "Repeat", "Filter", "Anisotropic Linear", "Convert to Linear", "Mirrored Repeat", "Video Surface"
+	"Mipmaps", null, "Filter", "Anisotropic Linear", "Convert to Linear", null, "Video Surface"
 ]
 
 export var preview_sprite = false
@@ -16,6 +16,7 @@ onready var importSettingsRoot:Control = $VBoxContainer/CollapsibleImportSetting
 
 var cur_item_name = null
 var cur_item_sprite:AtlasTexture = null
+var prevent_resource_updating:bool = false
 
 func _ready():
 	modulate.a = 0
@@ -25,9 +26,13 @@ func _ready():
 	# Set ImportSettings and connect event to checkboxes
 	var i = 0
 	for child in importSettingsRoot.get_children():
-		child.text = ImportSettingNames[i]
-		if !child.is_connected("toggled", self, "_on_ImportSetting_toggled"):
-			child.connect("toggled", self, "_on_ImportSetting_toggled", [i])
+		var name_or_null = ImportSettingNames[i]
+		if name_or_null == null:
+			child.visible = false
+		else:
+			child.text = name_or_null
+			if !child.is_connected("toggled", self, "_on_ImportSetting_toggled"):
+				child.connect("toggled", self, "_on_ImportSetting_toggled", [i])
 		i += 1
 
 func _on_item_hovered(item_name, item):
@@ -49,10 +54,12 @@ func _on_item_hovered(item_name, item):
 		
 	# Set ImportSettings in checkboxes
 	var i = 0
+	prevent_resource_updating = true
 	for child in importSettingsRoot.get_children():
 		var flag = cur_item_sprite.flags & int(pow(2, i))
 		child.pressed = flag > 0
 		i += 1
+	prevent_resource_updating = false
 		
 	modulate.a = 1
 
@@ -60,6 +67,8 @@ func _on_item_unhovered(_item_name, _item):
 	pass # TODO
 	
 func _on_ImportSetting_toggled(pressed, i):
+	# To give option to update value by code
+	if prevent_resource_updating: return
 	print("ImportSetting ", i, ": ", pressed)
 	
 	# Update resources flags

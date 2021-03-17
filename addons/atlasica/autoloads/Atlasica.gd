@@ -85,6 +85,10 @@ func update_resources():
 		# Check if resource existed earlier
 		var previously_existed = ResourceLoader.exists(path, "Image")
 		
+		# If it does: save import settings flags
+		if previously_existed:
+			resource.flags = get_sprite(sprite_name).flags
+		
 		# Also erase this from list of previously existing files
 		file_names_prev.erase(sprite_name + ".tres")
 		
@@ -124,11 +128,11 @@ func get_metadata(sprite_name):
 		return null
 	return atlas_layout.sprites[sprite_name].metadata
 		
-func _get_resource_path(sprite_name):
+func _get_resource_path(sprite_name)->String:
 	return RESOURCE_PATH + "/" + sprite_name + ".tres"
 
-func _create_sprite_resource(atlas_image, sprite_data):
+func _create_sprite_resource(atlas_image, sprite_data)->AtlasTexture:
 	var resource:AtlasTexture = AtlasTexture.new()
-	resource.atlas = atlas_image
+	resource.atlas = atlas_image.duplicate()
 	resource.region = Rect2(sprite_data.x, sprite_data.y, sprite_data.w, sprite_data.h)
 	return resource
