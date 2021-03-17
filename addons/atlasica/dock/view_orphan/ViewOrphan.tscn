@@ -13,12 +13,17 @@ __meta__ = {
 }
 
 [node name="IconLabel" parent="." instance=ExtResource( 1 )]
-margin_right = 523.0
+margin_right = 624.0
 icon = 1
 text = "Previous sprites are not present in the new atlas and could be corrupted:"
 
 [node name="OrphanRoot" type="VBoxContainer" parent="."]
 margin_top = 30.0
-margin_right = 523.0
+margin_right = 624.0
 margin_bottom = 30.0
-custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="."]
+margin_top = 30.0
+margin_right = 624.0
+margin_bottom = 44.0
+text = "Right click the resource in the FileSystem and click \"View Owners...\" to see if it is used anywhere."

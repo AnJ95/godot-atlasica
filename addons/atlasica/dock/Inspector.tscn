@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/atlasica/dock/Inspector.gd" type="Script" id=1]
+[ext_resource path="res://addons/atlasica/dock/collapsible/Collapsible.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.25098, 0.270588, 0.32549, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="Inspector" type="ScrollContainer"]
-margin_right = 262.0
-margin_bottom = 68.0
+margin_right = 420.0
+margin_bottom = 833.0
 rect_min_size = Vector2( 420, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -17,108 +21,160 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 408.0
-margin_bottom = 126.0
+margin_right = 420.0
+margin_bottom = 556.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="LblName" type="Label" parent="VBoxContainer"]
-margin_right = 408.0
-margin_bottom = 14.0
-text = "name"
+[node name="Panel" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 420.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+custom_styles/panel = SubResource( 2 )
 
-[node name="Spacer" type="Control" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 408.0
-margin_bottom = 18.0
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-margin_top = 22.0
-margin_right = 408.0
+[node name="LblName" type="Label" parent="VBoxContainer/Panel"]
+margin_top = 8.0
+margin_right = 420.0
 margin_bottom = 22.0
+text = "name"
+align = 1
+
+[node name="CollapsiblePreview" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 30.0
+margin_right = 420.0
+margin_bottom = 476.0
+title = "Texture Preview"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CollapsiblePreview"]
+margin_top = 38.0
+margin_right = 420.0
+margin_bottom = 446.0
+rect_min_size = Vector2( 0, 408 )
 size_flags_horizontal = 3
 expand = true
 stretch_mode = 6
 
-[node name="Spacer2" type="Control" parent="VBoxContainer"]
-margin_top = 26.0
-margin_right = 408.0
-margin_bottom = 26.0
+[node name="CollapsibleMetadata" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 476.0
+margin_right = 420.0
+margin_bottom = 506.0
+collapsed = true
+title = "Metadata"
 
-[node name="Button" type="Button" parent="VBoxContainer"]
-margin_top = 30.0
-margin_right = 144.0
-margin_bottom = 50.0
-size_flags_horizontal = 0
-text = "Reveal in FileSystem"
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CollapsibleMetadata"]
+visible = false
+margin_top = 38.0
+margin_right = 420.0
+margin_bottom = 68.0
 
-[node name="Spacer3" type="Control" parent="VBoxContainer"]
-margin_top = 54.0
-margin_right = 408.0
-margin_bottom = 54.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 58.0
-margin_right = 408.0
-margin_bottom = 72.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 376.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleMetadata/HBoxContainer"]
+margin_right = 368.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 text = "Atlas position:"
 
-[node name="LblPos" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 380.0
-margin_right = 408.0
-margin_bottom = 14.0
+[node name="LblPos" type="Label" parent="VBoxContainer/CollapsibleMetadata/HBoxContainer"]
+margin_left = 376.0
+margin_right = 420.0
+margin_bottom = 30.0
 text = "(0,0)"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/CollapsibleMetadata"]
+visible = false
 margin_top = 76.0
-margin_right = 408.0
-margin_bottom = 90.0
+margin_right = 420.0
+margin_bottom = 106.0
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 376.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleMetadata/HBoxContainer2"]
+margin_right = 368.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 text = "Sprite size:"
 
-[node name="LblSize" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 380.0
-margin_right = 408.0
-margin_bottom = 14.0
+[node name="LblSize" type="Label" parent="VBoxContainer/CollapsibleMetadata/HBoxContainer2"]
+margin_left = 376.0
+margin_right = 420.0
+margin_bottom = 30.0
 text = "(0,0)"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 94.0
-margin_right = 408.0
-margin_bottom = 126.0
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CollapsibleMetadata"]
+visible = false
+margin_top = 114.0
+margin_right = 420.0
+margin_bottom = 182.0
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
-margin_right = 408.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleMetadata/VBoxContainer"]
+margin_right = 420.0
+margin_bottom = 30.0
 text = "Metadata:"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 408.0
-margin_bottom = 32.0
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/CollapsibleMetadata/VBoxContainer"]
+margin_top = 38.0
+margin_right = 420.0
+margin_bottom = 68.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/PanelContainer"]
-margin_right = 408.0
-margin_bottom = 14.0
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/CollapsibleMetadata/VBoxContainer/PanelContainer"]
+margin_right = 420.0
+margin_bottom = 30.0
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 readonly = true
 
-[node name="lblMetadata" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer"]
-margin_right = 408.0
-margin_bottom = 14.0
+[node name="lblMetadata" type="Label" parent="VBoxContainer/CollapsibleMetadata/VBoxContainer/PanelContainer"]
+margin_right = 420.0
+margin_bottom = 30.0
 autowrap = true
-[connection signal="resized" from="VBoxContainer/TextureRect" to="." method="_on_TextureRect_resized"]
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
+
+[node name="CollapsibleImportSettings" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 506.0
+margin_right = 420.0
+margin_bottom = 536.0
+collapsed = true
+title = "Import Settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CollapsibleImportSettings"]
+visible = false
+margin_top = 38.0
+margin_right = 420.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleImportSettings/HBoxContainer"]
+margin_right = 368.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+text = "Atlas position:"
+
+[node name="LblPos" type="Label" parent="VBoxContainer/CollapsibleImportSettings/HBoxContainer"]
+margin_left = 376.0
+margin_right = 420.0
+margin_bottom = 30.0
+text = "(0,0)"
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+margin_top = 536.0
+margin_right = 420.0
+margin_bottom = 536.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 536.0
+margin_right = 420.0
+margin_bottom = 556.0
+
+[node name="ButtonReveal" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+text = "Reveal in FileSystem"
+
+[node name="ButtonEdit" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_left = 148.0
+margin_right = 244.0
+margin_bottom = 20.0
+text = "Edit resource"
+[connection signal="resized" from="VBoxContainer/CollapsiblePreview/TextureRect" to="." method="_on_TextureRect_resized"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/ButtonReveal" to="." method="_on_ButtonReveal_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/ButtonEdit" to="." method="_on_ButtonEdit_pressed"]
