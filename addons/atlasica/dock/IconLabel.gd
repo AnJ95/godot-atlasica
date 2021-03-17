@@ -9,6 +9,8 @@ enum EditorIcons {
 	ToolMove,
 	ToolScale,
 	AtlasTexture,
+	GuiTreeArrowRight,
+	GuiTreeArrowDown,
 	AnimationTrackList, # TODO unused
 	Tools # TODO unused
 }
