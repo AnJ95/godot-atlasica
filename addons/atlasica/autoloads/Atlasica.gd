@@ -1,6 +1,7 @@
 tool
 extends Node
 
+signal resources_updated()
 signal state_changed(state)
 
 const State = preload("res://addons/atlasica/state/State.gd")
@@ -39,8 +40,7 @@ func _reset_state():
 	_save_state()
 
 func _on_state_changed(): # redirect signal from resource
-	var state = get_state()
-	emit_signal("state_changed", state)
+	emit_signal("state_changed", get_state())
 	_save_state()
 
 func _ensure_resource_directories():
@@ -99,11 +99,16 @@ func update_resources():
 		# Update resource if it previously existed
 		if previously_existed:
 			Atlasica.ei.get_resource_filesystem().update_file(path)
+	# Clear cache
+	_sprites = {}
 	
+	# Update list of orphaned resources
 	_orphaned_resources = []
 	for orphan_name in file_names_prev:
 		if orphan_name.ends_with(".tres"):
 			_orphaned_resources.append(orphan_name.rstrip(".tres"))
+			
+	emit_signal("resources_updated")
 	
 func get_sprite(sprite_name):
 	if !_sprites.has(sprite_name):

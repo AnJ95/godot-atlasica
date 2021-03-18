@@ -39,14 +39,23 @@ func _ready():
 			iconLabel.themed_node = themed_node
 			
 	_on_state_changed(Atlasica.get_state())
-	viewOrphan.update_orphans(Atlasica._orphaned_resources)
 	
+	Atlasica.connect("resources_updated", self, "_on_resources_changed")
+	_on_resources_changed()
+	
+	# Fix to prevent height change on tab change
 	var y = rect_size.y
 	rect_min_size.y = y
 	
 
 func _on_FileInputZip_value_changed(value):
 	Atlasica.get_state().path_zip = value
+	if Atlasica.get_state().has_valid_zip():
+		Atlasica.update_resources()
+	
+	
+func _on_resources_changed():
+	viewOrphan.update_orphans(Atlasica._orphaned_resources)
 	
 func _on_state_changed(state):
 	var is_all_valid = false
@@ -68,6 +77,9 @@ func _on_state_changed(state):
 	btnUpdate.disabled = !is_all_valid
 	checkUpdate.disabled = !is_all_valid
 	btnRevealResourceDir.disabled = !is_all_valid
+	
+	checkUpdate.pressed = state.autoupdate
+	
 	tween.interpolate_property(gridSetupValid, "modulate:a", null, 1 if is_all_valid else 0.4, 0.4, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	tween.start()
 
@@ -93,5 +105,6 @@ func _on_ButtonRevealResourceDir_pressed():
 func _on_ButtonUpdate_pressed():
 	if Atlasica.get_state().has_valid_zip():
 		Atlasica.update_resources()
-		viewOrphan.update_orphans(Atlasica._orphaned_resources)
-		
+
+func _on_CheckBoxUpdate_toggled(button_pressed):
+	Atlasica.get_state().autoupdate = button_pressed

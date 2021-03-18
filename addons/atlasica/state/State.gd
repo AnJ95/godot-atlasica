@@ -4,6 +4,7 @@ extends Resource
 signal state_changed()
 
 export(String) var path_zip = null setget _set_path_zip
+export(bool) var autoupdate = false setget _set_autoupdate
 
 const FILE_LAYOUT = "layout.json"
 const FILE_ATLAS = "spritesheet.png"
@@ -91,7 +92,9 @@ func _uncompress_and_save(file_name):
 	f.close()
 	return true
 
-
+func _set_autoupdate(v):
+	autoupdate = v
+	emit_signal("state_changed")
 func _set_path_zip(v):
 	path_zip = v
 	_loaded_gdunzip = null

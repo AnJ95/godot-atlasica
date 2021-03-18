@@ -534,6 +534,7 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer2/HBoxContainer2/LinkButtonGitHub" to="." method="_on_LinkButtonGitHub_pressed"]
 [connection signal="pressed" from="TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/HBoxContainer/LinkButtonSpriteBuilder" to="." method="_on_LinkButtonSpriteBuilder_pressed"]
 [connection signal="pressed" from="TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/HBoxContainer2/ButtonUpdate" to="." method="_on_ButtonUpdate_pressed"]
+[connection signal="toggled" from="TabContainer/Setup/VBoxContainer/GridContainer2/VBoxContainer/HBoxContainer2/CheckBoxUpdate" to="." method="_on_CheckBoxUpdate_toggled"]
 [connection signal="pressed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer/Button" to="TabContainer/Atlas/ViewAtlas" method="_on_reset"]
 [connection signal="text_changed" from="TabContainer/Atlas/VBoxContainer/HBoxContainer2/LineEditFilterAtlas" to="TabContainer/Atlas/ViewAtlas" method="_on_LineEditFilterAtlas_text_changed"]
 [connection signal="item_hovered" from="TabContainer/Atlas/ViewAtlas" to="TabContainer/Atlas/VBoxContainer/Inspector" method="_on_item_hovered"]
