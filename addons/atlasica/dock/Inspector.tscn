@@ -9,6 +9,7 @@ bg_color = Color( 0.25098, 0.270588, 0.32549, 1 )
 [sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Inspector" type="ScrollContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 420.0
 margin_bottom = 833.0
 rect_min_size = Vector2( 420, 0 )
@@ -22,7 +23,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 420.0
-margin_bottom = 760.0
+margin_bottom = 564.0
 size_flags_horizontal = 3
 custom_constants/separation = 0
 
@@ -132,57 +133,66 @@ autowrap = true
 [node name="CollapsibleImportSettings" parent="VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 514.0
 margin_right = 420.0
-margin_bottom = 740.0
+margin_bottom = 544.0
+collapsed = true
 title = "Import Settings"
 
 [node name="Root" type="VBoxContainer" parent="VBoxContainer/CollapsibleImportSettings"]
+visible = false
 margin_top = 34.0
 margin_right = 420.0
-margin_bottom = 226.0
+margin_bottom = 170.0
 
 [node name="ImportSetting0" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
 margin_right = 420.0
 margin_bottom = 24.0
+text = "Mipmaps"
 
 [node name="ImportSetting1" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
+visible = false
 margin_top = 28.0
 margin_right = 420.0
 margin_bottom = 52.0
 
 [node name="ImportSetting2" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
+margin_top = 28.0
+margin_right = 420.0
+margin_bottom = 52.0
+text = "Filter"
+
+[node name="ImportSetting3" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
 margin_top = 56.0
 margin_right = 420.0
 margin_bottom = 80.0
+text = "Anisotropic Linear"
 
-[node name="ImportSetting3" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
+[node name="ImportSetting4" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
 margin_top = 84.0
 margin_right = 420.0
 margin_bottom = 108.0
-
-[node name="ImportSetting4" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
-margin_top = 112.0
-margin_right = 420.0
-margin_bottom = 136.0
+text = "Convert to Linear"
 
 [node name="ImportSetting5" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
+visible = false
 margin_top = 140.0
 margin_right = 420.0
 margin_bottom = 164.0
 
 [node name="ImportSetting6" type="CheckBox" parent="VBoxContainer/CollapsibleImportSettings/Root"]
-margin_top = 168.0
+margin_top = 112.0
 margin_right = 420.0
-margin_bottom = 192.0
+margin_bottom = 136.0
+text = "Video Surface"
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
-margin_top = 740.0
+margin_top = 544.0
 margin_right = 420.0
-margin_bottom = 740.0
+margin_bottom = 544.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 740.0
+margin_top = 544.0
 margin_right = 420.0
-margin_bottom = 760.0
+margin_bottom = 564.0
 
 [node name="ButtonReveal" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_right = 144.0

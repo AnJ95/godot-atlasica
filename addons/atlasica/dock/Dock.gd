@@ -41,6 +41,9 @@ func _ready():
 	_on_state_changed(Atlasica.get_state())
 	viewOrphan.update_orphans(Atlasica._orphaned_resources)
 	
+	var y = rect_size.y
+	rect_min_size.y = y
+	
 
 func _on_FileInputZip_value_changed(value):
 	Atlasica.get_state().path_zip = value

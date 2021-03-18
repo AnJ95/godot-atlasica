@@ -170,7 +170,7 @@ margin_right = 335.0
 margin_bottom = 48.0
 size_flags_horizontal = 0
 text = "Import zip"
-value = "res://_data.zip"
+value = ""
 get_from_state_initially = "path_zip"
 
 [node name="IconLabelFileDoesNotExist" parent="TabContainer/Setup/VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 3 )]
@@ -440,9 +440,7 @@ margin_right = 420.0
 margin_bottom = 166.0
 
 [node name="Inspector" parent="TabContainer/Atlas/VBoxContainer" instance=ExtResource( 5 )]
-modulate = Color( 1, 1, 1, 0 )
 margin_top = 170.0
-margin_right = 420.0
 margin_bottom = 564.0
 preview_sprite = true
 
@@ -509,10 +507,8 @@ margin_right = 420.0
 margin_bottom = 56.0
 
 [node name="Inspector" parent="TabContainer/List of Sprites/VBoxContainer" instance=ExtResource( 5 )]
-modulate = Color( 1, 1, 1, 0 )
 margin_top = 60.0
-margin_right = 420.0
-margin_bottom = 172.0
+margin_bottom = 564.0
 preview_sprite = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/List of Sprites"]

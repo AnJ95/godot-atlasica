@@ -53,13 +53,14 @@ func _on_item_hovered(item_name, item):
 		textureRect.visible = false
 		
 	# Set ImportSettings in checkboxes
-	var i = 0
-	prevent_resource_updating = true
-	for child in importSettingsRoot.get_children():
-		var flag = cur_item_sprite.flags & int(pow(2, i))
-		child.pressed = flag > 0
-		i += 1
-	prevent_resource_updating = false
+	if cur_item_sprite:
+		var i = 0
+		prevent_resource_updating = true
+		for child in importSettingsRoot.get_children():
+			var flag = cur_item_sprite.flags & int(pow(2, i))
+			child.pressed = flag > 0
+			i += 1
+		prevent_resource_updating = false
 		
 	modulate.a = 1
 
@@ -69,7 +70,6 @@ func _on_item_unhovered(_item_name, _item):
 func _on_ImportSetting_toggled(pressed, i):
 	# To give option to update value by code
 	if prevent_resource_updating: return
-	print("ImportSetting ", i, ": ", pressed)
 	
 	# Update resources flags
 	var flags = cur_item_sprite.flags
